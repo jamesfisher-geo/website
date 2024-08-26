@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import GaussianSplatting from '../views/GaussianSplatting.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,6 +19,7 @@ const router = createRouter({
     {
       path: '/splats',
       name: 'splats',
+      component: GaussianSplatting
     },
     {
       path: '/contactme',

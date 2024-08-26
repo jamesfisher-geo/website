@@ -1,10 +1,9 @@
 <template>
-  <!-- Change this part -->
-  <div :class="['nav-container', { homepage: isHomepage }]">
-    <div class="name-and-nav" :class="{ homepage: isHomepage }">
-      <div class="name-text" :class="{ homepage: isHomepage }">James A. Fisher</div>
+  <div :class="['nav-container', { homepage: isHomePage }]">
+    <div class="name-and-nav" :class="{ homepage: isHomePage }">
+      <div class="name-text" :class="{ homepage: isHomePage }">James A. Fisher</div>
       <nav class="secondary-nav">
-        <RouterLink to="/">Home</RouterLink>
+        <RouterLink v-if="!isHomePage" to="/">Home</RouterLink>
         <RouterLink to="/projects">Projects</RouterLink>
         <RouterLink to="/splats">Splats</RouterLink>
         <RouterLink to="/contactme">Contact Me</RouterLink>
@@ -14,17 +13,11 @@
 </template>
 
 <script setup>
-import { RouterLink } from 'vue-router'
-import { defineProps, computed } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
+import { computed } from 'vue'
 
-const props = defineProps({
-  homepage: {
-    type: Boolean,
-    default: false
-  }
-})
-
-const isHomepage = computed(() => props.homepage)
+const route = useRoute()
+const isHomePage = computed(() => route.path === '/')
 </script>
 
 <style scoped>

@@ -6,6 +6,7 @@
     <template v-else>
       <NavBar />
     </template>
+    <router-view></router-view>
   </div>
 </template>
 
