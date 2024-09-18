@@ -21,8 +21,6 @@ concurrency:
   group: 'pages'
   cancel-in-progress: false
 
-env:
-  BASE_URL: 'https://jamesfisher-geo.github.io/website/'
 jobs:
   deploy:
     environment:
