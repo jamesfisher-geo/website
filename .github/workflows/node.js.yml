@@ -22,7 +22,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  PUBLIC_PATH: '/website/'
+  BASE_URL: 'https://jamesfisher-geo.github.io/website/'
 jobs:
   deploy:
     environment:
