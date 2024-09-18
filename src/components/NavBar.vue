@@ -1,12 +1,11 @@
 <template>
-  <!-- Change this part -->
-  <div :class="['nav-container', { homepage: isHomepage }]">
-    <div class="name-and-nav" :class="{ homepage: isHomepage }">
-      <div class="name-text" :class="{ homepage: isHomepage }">James A. Fisher</div>
+  <div :class="['nav-container', { homepage: isHomePage }]">
+    <div class="name-and-nav" :class="{ homepage: isHomePage }">
+      <div class="name-text" :class="{ homepage: isHomePage }">James A. Fisher</div>
       <nav class="secondary-nav">
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/projects">Projects</RouterLink>
-        <RouterLink to="/splats">Splats</RouterLink>
+        <RouterLink v-if="!isHomePage" to="/">Home</RouterLink>
+        <!-- <RouterLink to="/projects">Projects</RouterLink> -->
+        <RouterLink to="/splats">Gaussian Splats</RouterLink>
         <RouterLink to="/contactme">Contact Me</RouterLink>
       </nav>
     </div>
@@ -14,17 +13,11 @@
 </template>
 
 <script setup>
-import { RouterLink } from 'vue-router'
-import { defineProps, computed } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
+import { computed } from 'vue'
 
-const props = defineProps({
-  homepage: {
-    type: Boolean,
-    default: false
-  }
-})
-
-const isHomepage = computed(() => props.homepage)
+const route = useRoute()
+const isHomePage = computed(() => route.path === '/')
 </script>
 
 <style scoped>
@@ -33,7 +26,6 @@ const isHomepage = computed(() => props.homepage)
   width: 100%;
 }
 
-/* Add this new class */
 .name-and-nav {
   display: flex;
   justify-content: space-between;
@@ -41,7 +33,6 @@ const isHomepage = computed(() => props.homepage)
   padding: 10px;
 }
 
-/* Modify this class */
 .name-text {
   font-size: 18px;
   font-weight: bold;
@@ -50,13 +41,11 @@ const isHomepage = computed(() => props.homepage)
   min-width: 150px;
 }
 
-/* Modify this class */
 .name-and-nav.homepage {
   flex-direction: column;
   align-items: center;
 }
 
-/* Modify this class */
 .name-text.homepage {
   margin-bottom: 20px;
   font-size: 24px;
@@ -87,7 +76,6 @@ const isHomepage = computed(() => props.homepage)
   background-color: transparent;
 }
 
-/* Modify this class */
 .nav-container.homepage {
   display: flex;
   justify-content: center;
@@ -95,7 +83,6 @@ const isHomepage = computed(() => props.homepage)
   height: 100vh;
 }
 
-/* Add this class */
 .nav-container.homepage .name-and-nav {
   flex-direction: column;
   align-items: center;
