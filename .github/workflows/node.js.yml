@@ -22,10 +22,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  VITE_BASENAME: '/website'
-
+  PUBLIC_PATH: '/website/'
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
