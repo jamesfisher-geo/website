@@ -1,12 +1,9 @@
 <template>
   <div id="app">
-    <template v-if="$route.path === '/'">
-      <NavBar :homepage="true" />
-    </template>
-    <template v-else>
-      <NavBar />
-    </template>
-    <router-view></router-view>
+    <NavBar :homepage="$route.path === '/'" />
+    <main class="main-content">
+      <router-view></router-view>
+    </main>
   </div>
 </template>
 
@@ -26,12 +23,12 @@ body {
 
 #app {
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
 }
 
-main {
+.main-content {
   flex-grow: 1;
-  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;

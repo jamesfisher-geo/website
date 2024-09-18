@@ -4,8 +4,8 @@
       <div class="name-text" :class="{ homepage: isHomePage }">James A. Fisher</div>
       <nav class="secondary-nav">
         <RouterLink v-if="!isHomePage" to="/">Home</RouterLink>
-        <RouterLink to="/projects">Projects</RouterLink>
-        <RouterLink to="/splats">Splats</RouterLink>
+        <!-- <RouterLink to="/projects">Projects</RouterLink> -->
+        <RouterLink to="/splats">Gaussian Splats</RouterLink>
         <RouterLink to="/contactme">Contact Me</RouterLink>
       </nav>
     </div>
@@ -26,7 +26,6 @@ const isHomePage = computed(() => route.path === '/')
   width: 100%;
 }
 
-/* Add this new class */
 .name-and-nav {
   display: flex;
   justify-content: space-between;
@@ -34,7 +33,6 @@ const isHomePage = computed(() => route.path === '/')
   padding: 10px;
 }
 
-/* Modify this class */
 .name-text {
   font-size: 18px;
   font-weight: bold;
@@ -43,13 +41,11 @@ const isHomePage = computed(() => route.path === '/')
   min-width: 150px;
 }
 
-/* Modify this class */
 .name-and-nav.homepage {
   flex-direction: column;
   align-items: center;
 }
 
-/* Modify this class */
 .name-text.homepage {
   margin-bottom: 20px;
   font-size: 24px;
@@ -80,7 +76,6 @@ const isHomePage = computed(() => route.path === '/')
   background-color: transparent;
 }
 
-/* Modify this class */
 .nav-container.homepage {
   display: flex;
   justify-content: center;
@@ -88,7 +83,6 @@ const isHomePage = computed(() => route.path === '/')
   height: 100vh;
 }
 
-/* Add this class */
 .nav-container.homepage .name-and-nav {
   flex-direction: column;
   align-items: center;

@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import GaussianSplatting from '../views/GaussianSplatting.vue';
+import ContactMe from '../views/ContactMeView.vue';
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +26,7 @@ const router = createRouter({
     {
       path: '/contactme',
       name: 'contactme',
+      component: ContactMe
     }
     // {
     //   path: '/opensource',
