@@ -15,16 +15,24 @@ import NavBar from './components/NavBar.vue'
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
 
+html,
 body {
+  height: 100%;
   margin: 0;
   padding: 0;
+}
+
+body {
   font-family: 'Inconsolata', monospace;
+  display: flex;
+  flex-direction: column;
 }
 
 #app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  width: 100%;
 }
 
 .main-content {
@@ -32,5 +40,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Ensure NavBar doesn't have unexpected margin or padding */
+#app > * {
+  margin: 0;
+  padding: 0;
 }
 </style>
