@@ -111,7 +111,8 @@ export default {
         initialCameraPosition: props.initialCameraPosition,
         initialCameraLookAt: props.initialCameraLookAt,
         sphericalHarmonicsDegree: props.sphericalHarmonicsDegree,
-        rootElement: container.value
+        rootElement: container.value,
+        sharedMemoryForWorkers: false //remove when the Isolation issue is solved
       })
 
       viewer
