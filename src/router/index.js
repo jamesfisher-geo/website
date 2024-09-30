@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import GaussianSplatting from '../views/GaussianSplatting.vue';
+import GaussianSplatViewer from '../views/GaussianSplatView.vue';
+
 import ContactMe from '../views/ContactMeView.vue';
 
 
@@ -12,16 +13,12 @@ const router = createRouter({
     },
     {
       path: '/projects',
-      name: 'projects',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      // component: () => import('../views/AboutView.vue')
+      name: 'projects'
     },
     {
       path: '/splats',
       name: 'splats',
-      component: GaussianSplatting
+      component: GaussianSplatViewer
     },
     {
       path: '/contactme',

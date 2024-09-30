@@ -161,7 +161,6 @@ const closeMenu = () => {
     border-top: none;
   }
 
-  /* Ensure homepage layout remains consistent on mobile */
   .nav-container.homepage {
     min-height: 100vh;
     height: auto;
