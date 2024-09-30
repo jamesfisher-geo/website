@@ -42,7 +42,6 @@ body {
   align-items: center;
 }
 
-/* Ensure NavBar doesn't have unexpected margin or padding */
 #app > * {
   margin: 0;
   padding: 0;
