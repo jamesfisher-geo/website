@@ -42,16 +42,23 @@
         </div>
       </div>
     </div>
+    <div class="description-window">
+      <img
+        src="../assets/info.svg"
+        alt="Description Logo"
+        class="description-logo"
+        @click="toggleDescription"
+      />
+      <div class="description-content" :class="{ expanded: isDescriptionExpanded }">
+        <h4>{{ selectedOptionData.label }}</h4>
+        <p>{{ selectedOptionData.text }}</p>
+      </div>
+    </div>
   </div>
-  <!-- <div class="attribution">
-    The Gaussian Splat viewer was created with the
-    <a href="https://github.com/mkkellogg/GaussianSplats3D" target="_blank">GaussianSplats3D</a> by
-    Mark Kellogg
-  </div> -->
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
 import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d'
 
 export default {
@@ -86,18 +93,63 @@ export default {
     const container = ref(null)
     let viewer = null
     const isInstructionsExpanded = ref(false)
+    const isDescriptionExpanded = ref(false)
 
     const toggleInstructions = () => {
       isInstructionsExpanded.value = !isInstructionsExpanded.value
     }
 
+    const toggleDescription = () => {
+      isDescriptionExpanded.value = !isDescriptionExpanded.value
+    }
+
     const options = [
-      { value: 'herodotus.splat', label: 'Herodotus' },
-      { value: 'apollo.splat', label: 'Apollo' },
-      { value: 'vizcaya.splat', label: 'Vizcaya' },
-      { value: 'dragon.splat', label: 'Dragon' }
+      {
+        value: 'herodotus.splat',
+        label: 'Athens - Herodotus',
+        text: 'this is a test'
+      },
+      {
+        value: 'apollo.splat',
+        label: 'Athens - Apollo Patroos',
+        text: 'this is a test'
+      },
+      {
+        value: 'vizcaya.splat',
+        label: 'Vizcaya Facade',
+        text: 'this is a test'
+      },
+      {
+        value: 'dragon.splat',
+        label: 'Berlin - St. George & The Dragon',
+        text: 'this is a test'
+      },
+      {
+        value: 'carmo_convent_fountain.ksplat',
+        label: 'Lisbon - Carmo Fountain Cat',
+        text: 'this is a test'
+      },
+      {
+        value: 'carmo_convent_tomb.ksplat',
+        label: 'Lisbon - Carmo Museum',
+        text: 'this is a test'
+      },
+      {
+        value: 'parque_das_aguas_lisbon.ksplat',
+        label: 'Lisbon - Parque das Aguas',
+        text: 'this is a test'
+      },
+      {
+        value: 'berlin_wall_horse_statue.ksplat',
+        label: 'Berlin - The Day The Wall Came Down',
+        text: 'this is a test'
+      }
     ]
     const selectedOption = ref(options[0].value)
+
+    const selectedOptionData = computed(() => {
+      return options.find((option) => option.value === selectedOption.value) || {}
+    })
 
     const loadSelectedModel = () => {
       if (viewer) {
@@ -147,9 +199,12 @@ export default {
       container,
       options,
       selectedOption,
+      selectedOptionData,
       loadSelectedModel,
       isInstructionsExpanded,
-      toggleInstructions
+      toggleInstructions,
+      isDescriptionExpanded,
+      toggleDescription
     }
   }
 }
@@ -158,10 +213,8 @@ export default {
 <style scoped>
 .viewer-content {
   width: 100vw;
-  height: 100vh;
+  height: 75vh;
   background-color: #000000;
-  position: relative;
-  overflow: hidden;
 }
 
 .dropdown {
@@ -188,13 +241,31 @@ export default {
   top: 10px;
   left: 10px;
   cursor: pointer;
-  z-index: 1000;
+}
+
+.description-window {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  cursor: pointer;
 }
 
 .instructions-logo {
-  width: 50px;
-  height: auto;
+  width: 40px;
+  height: 40px;
   filter: brightness(0) invert(1);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.description-logo {
+  width: 40px;
+  height: 40px;
+  filter: brightness(0) invert(1);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 50%;
 }
 
 .instructions-content {
@@ -208,10 +279,32 @@ export default {
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   width: 300px;
-  z-index: 1001;
 }
 
-.instructions-content.expanded {
+.description-content {
+  display: none;
+  position: absolute;
+  bottom: 60px;
+  left: 0;
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 300px;
+}
+
+.instructions-content.expanded,
+.description-content.expanded {
   display: block;
+}
+
+.description-content h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.description-content p {
+  margin: 0;
 }
 </style>
