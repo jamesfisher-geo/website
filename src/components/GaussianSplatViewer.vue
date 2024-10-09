@@ -42,16 +42,20 @@
         </div>
       </div>
     </div>
-    <div class="description-window">
+    <div class="description-window" :class="{ expanded: isDescriptionExpanded }">
       <img
+        v-if="!isDescriptionExpanded"
         src="../assets/info.svg"
         alt="Description Logo"
         class="description-logo"
         @click="toggleDescription"
       />
-      <div class="description-content" :class="{ expanded: isDescriptionExpanded }">
-        <h4>{{ selectedOptionData.label }}</h4>
-        <p>{{ selectedOptionData.text }}</p>
+      <div class="description-content">
+        <button class="close-button" @click="toggleDescription">×</button>
+        <h2 class="description-title">{{ selectedOptionData.label }}</h2>
+        <div class="description-text-container">
+          <p>{{ selectedOptionData.text }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -107,7 +111,7 @@ export default {
       {
         value: 'herodotus.splat',
         label: 'Athens - Herodotus',
-        text: 'this is a test'
+        text: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
       },
       {
         value: 'apollo.splat',
@@ -215,6 +219,7 @@ export default {
   width: 100vw;
   height: 75vh;
   background-color: #000000;
+  position: relative;
 }
 
 .dropdown {
@@ -222,31 +227,14 @@ export default {
   top: 10px;
   right: 10px;
   padding: 10px;
-  width: 120px;
+  width: 240px;
   z-index: 1000;
-}
-
-#instructions {
-  background: rgba(255, 255, 255, 0.6);
-  white-space: pre-wrap;
-  padding: 10px;
-  border-radius: 10px;
-  max-height: 40vh;
-  font-size: smaller;
-  overflow-y: auto;
 }
 
 .instructions-window {
   position: absolute;
   top: 10px;
-  left: 10px;
-  cursor: pointer;
-}
-
-.description-window {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
+  left: 0.5vw;
   cursor: pointer;
 }
 
@@ -255,8 +243,29 @@ export default {
   height: 40px;
   filter: brightness(0) invert(1);
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 5px;
   border-radius: 50%;
+}
+
+.instructions-content {
+  display: none;
+  position: absolute;
+  top: 5vh;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 5px;
+  width: 300px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.instructions-content.expanded {
+  display: block;
+}
+
+.instructions-content #instructions {
+  max-height: 39vh;
+  font-size: smaller;
+  overflow-y: auto;
 }
 
 .description-logo {
@@ -266,45 +275,76 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 5px;
   border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  left: 0.5vw;
+  bottom: 10px;
+  z-index: 2;
 }
 
-.instructions-content {
-  display: none;
+.description-window {
   position: absolute;
-  top: 60px;
-  left: 0;
-  background-color: #fff;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  bottom: 10px;
+  left: 0.5vw;
+  transition: all 0.3s ease;
   width: 300px;
+}
+
+.description-window.expanded {
+  width: 100%;
+  height: 25vh;
+  left: 0;
+  bottom: 0;
 }
 
 .description-content {
   display: none;
   position: absolute;
-  bottom: 60px;
-  left: 0;
-  background-color: #fff;
-  padding: 10px;
-  border: 1px solid #ccc;
+  bottom: 0;
+  left: 0.5vw;
+  right: 0.5vw;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+  height: 100%;
+  overflow: hidden;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  width: 300px;
 }
 
-.instructions-content.expanded,
-.description-content.expanded {
+.description-window.expanded .description-content {
   display: block;
+  height: 25vh;
+  overflow-y: auto;
 }
 
-.description-content h4 {
-  margin-top: 0;
-  margin-bottom: 5px;
+.description-title {
+  font-weight: bold;
+  font-size: 1.5em;
+  margin-bottom: 10px;
 }
 
-.description-content p {
+.description-text-container {
+  height: calc(100% - 60px);
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.description-text-container p {
   margin: 0;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+.close-button:hover {
+  color: #000;
 }
 </style>
