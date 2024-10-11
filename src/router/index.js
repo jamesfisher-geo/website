@@ -12,10 +12,6 @@ const router = createRouter({
       name: 'home',
     },
     {
-      path: '/projects',
-      name: 'projects'
-    },
-    {
       path: '/splats',
       name: 'splats',
       component: GaussianSplatViewer

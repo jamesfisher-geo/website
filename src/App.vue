@@ -39,11 +39,6 @@ body {
   flex-grow: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-
-#app > * {
-  margin: 0;
-  padding: 0;
+  align-items: flex-start;
 }
 </style>
