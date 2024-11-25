@@ -130,7 +130,15 @@ Sources:
         camera_position: [-0.38064, -0.18216, 1.9139],
         camera_look_at: [-0.12069, -0.21909, 1.02961],
         camera_up: [-0.03172, -0.99894, -0.03324],
-        text: 'Placeholder'
+        text: `This is the apse of The Museu Arqueológico do Carmo (Carmo Archaeological Museum) that houses the Tomb of King Fernando I, which is the focus of this model. 
+
+The Carmo Archaeological Museum was originally founded in 1389 as the Convent of Santa Maria of Carmo. The convent operated until the 1755 Lisbon earthquake, which destroyed the city center and caused the collapse of most of the convent roof. Today the museum  houses artifacts from all periods of Portuguese history. 
+
+This is one of the best models so far. It includes fine details of the tomb, but also captures the surrounding environment.
+
+Sources:
+
+[The Carmo Ruins and Archaeological museum](https://www.museuarqueologicodocarmo.pt/mac/folhetoMAC_EN.pdf)`
       },
       {
         value: 'berlin_wall_horse_statue.ksplat',
@@ -139,16 +147,34 @@ Sources:
         camera_position: [-2.01948, -0.16754, 0.46328],
         camera_look_at: [-1.29397, -0.2221, 0.06908],
         camera_up: [-0.01529, -0.9998, 0.013],
-        text: 'Placeholder'
+        text: `Biding my time while Meret completed her interview at the U.S. embassy, I took a walk and found this sculpture outside the Allied Museum in the old American sector of Berlin. 
+
+This sculpture is called “**The Day the Wall Came Down”** by Veryl Goodnight. The graffitied  concrete pieces you see here are actual pieces of the Berlin wall. The piece was a gift to Germany from the US president George W. Bush Sr. and is one of two sister sculptures. The other resides in the George H. W. Bush Presidential Library at Texas A&M University.
+
+Sources:
+
+[A Monument to Freedom](https://verylgoodnight.com/the-day-the-wall-came-down/)
+
+[The Day the Wall Came Down](https://en.wikipedia.org/wiki/The_Day_the_Wall_Came_Down)
+`
       },
       {
         value: 'dragon.splat',
-        label: 'Berlin - St. George & The Dragon',
+        label: 'Berlin - St. George The Dragon Slayer',
         date: 'December 2023',
         camera_position: [3.29772, 0.72899, -3.31063],
         camera_look_at: [1.73379, 0.24299, -1.45236],
         camera_up: [0, -1, -0.17],
-        text: 'Placeholder'
+        text: `A memory from exploring the historic district in on my first trip to Berlin. 
+
+This statue was created by August Kiss  (1802 –1865) and  illustrates a biblical myth of Saint George slaying a dragon to rescue a Libyan princess. The details in the dragon and the horse here are quite striking.
+
+Sources:
+
+[Saint George](https://equestrianstatue.org/george-saint-8/)
+
+[Monuments and sculptures of Nicholas Quarter](https://berlin-nikolaiviertel.com/monuments-and-sculptures/?lang=en)
+`
       },
       {
         value: 'herodotus.ksplat',
@@ -157,7 +183,17 @@ Sources:
         camera_position: [2.77463, -1.37617, -4.58333],
         camera_look_at: [-0.74575, -1.73235, -0.2007],
         camera_up: [0.0, -0.98586, -0.1676],
-        text: 'Placeholder'
+        text: `
+Herodotus was a Greek author widely known as “The Father of History” for his narrative record of the Greek and Persian wars. The bust here is a Roman copy of the Greek original dating back to the second century AD. It is on display in the Stoà of Attalus at the Ancient Agora of Athens Museum. 
+
+My first visit to Athens and it did not disappoint.
+
+Sources:
+
+[Herodotus](https://www.britannica.com/biography/Herodotus-Greek-historian)
+
+[Category:Bust of Herodotus in the Ancient Agora Museum]([https://commons.wikimedia.org/wiki/Category:Bust_of_Herodotus_in_the_Ancient_Agora_Museum_(Ag._S_270)](https://commons.wikimedia.org/wiki/Category:Bust_of_Herodotus_in_the_Ancient_Agora_Museum_(Ag._S_270)))
+`
       },
       {
         value: 'apollo.splat',
@@ -166,7 +202,7 @@ Sources:
         camera_position: [6.7567, 0.98099, 2.69319],
         camera_look_at: [3.27841, -0.55021, 7.76069],
         camera_up: [0, -1, -0.17],
-        text: 'Placeholder'
+        text: ''
       },
       // {
       //   value: 'vizcaya.splat',
@@ -180,7 +216,15 @@ Sources:
         camera_position: [-1.51938, -0.90622, 0.84376],
         camera_look_at: [-0.46384, -0.39367, 0.23109],
         camera_up: [0.10604, -0.99427, -0.01348],
-        text: 'Placeholder'
+        text: `
+The nave of the Museu Arqueológico do Carmo (Carmo Archaeological Museum) includes many arcitectural pieces including pediments, coats of arms, and columns. Although, my favorite part of the exhibit would have to be the cute cat curled up on this fountain :) 
+
+The Carmo Archaeological Museum was originally founded in 1389 as the Convent of Santa Maria of Carmo. The convent operated until the 1755 Lisbon earthquake, which destroyed the city center and caused the collapse of most of the convent roof. Today the museum  houses artifacts from all periods of Portuguese history. 
+
+Sources:
+
+[The Carmo Ruins and Archaeological museum](https://www.museuarqueologicodocarmo.pt/mac/folhetoMAC_EN.pdf)
+        `
       }
     ]
     const selectedOption = ref(options[0].value)
