@@ -72,18 +72,6 @@ export default {
       type: Number,
       default: 0
     },
-    cameraUp: {
-      type: Array,
-      default: () => [0, -1, -0.17]
-    },
-    initialCameraPosition: {
-      type: Array,
-      default: () => [-5, -1, -1]
-    },
-    initialCameraLookAt: {
-      type: Array,
-      default: () => [-1.72477, 0.05395, -0.00147]
-    },
     sphericalHarmonicsDegree: {
       type: Number,
       default: 2
@@ -109,6 +97,38 @@ export default {
 
     const options = [
       {
+        value: 'parque_das_aguas_lisbon.ksplat',
+        label: 'Lisbon - Parque das Aguas',
+        camera_position: [-2.6369, -0.24802, 0.44527],
+        camera_look_at: [-1.8299, -0.18557, 0.01454],
+        camera_up: [-0.01529, -0.9998, 0.013],
+        text: 'this is a test'
+      },
+      {
+        value: 'carmo_convent_tomb.ksplat',
+        label: 'Lisbon - Carmo Museum',
+        camera_position: [-0.38064, -0.18216, 1.9139],
+        camera_look_at: [-0.12069, -0.21909, 1.02961],
+        camera_up: [-0.03172, -0.99894, -0.03324],
+        text: 'this is a test'
+      },
+      {
+        value: 'berlin_wall_horse_statue.ksplat',
+        label: 'Berlin - The Day The Wall Came Down',
+        camera_position: [-2.01948, -0.16754, 0.46328],
+        camera_look_at: [-1.29397, -0.2221, 0.06908],
+        camera_up: [-0.01529, -0.9998, 0.013],
+        text: 'this is a test'
+      },
+      {
+        value: 'dragon.splat',
+        label: 'Berlin - St. George & The Dragon',
+        camera_position: [3.29772, 0.72899, -3.31063],
+        camera_look_at: [1.73379, 0.24299, -1.45236],
+        camera_up: [0, -1, -0.17],
+        text: 'this is a test'
+      },
+      {
         value: 'herodotus.splat',
         label: 'Athens - Herodotus',
         camera_position: [-0.75001, 0.00283, -4.71739],
@@ -130,43 +150,11 @@ export default {
       //   text: 'this is a test'
       // },
       {
-        value: 'dragon.splat',
-        label: 'Berlin - St. George & The Dragon',
-        camera_position: [3.29772, 0.72899, -3.31063],
-        camera_look_at: [1.73379, 0.24299, -1.45236],
-        camera_up: [0, -1, -0.17],
-        text: 'this is a test'
-      },
-      {
         value: 'carmo_convent_fountain.ksplat',
         label: 'Lisbon - Carmo Fountain Cat',
         camera_position: [-1.51938, -0.90622, 0.84376],
         camera_look_at: [-0.46384, -0.39367, 0.23109],
         camera_up: [0.10604, -0.99427, -0.01348],
-        text: 'this is a test'
-      },
-      {
-        value: 'carmo_convent_tomb.ksplat',
-        label: 'Lisbon - Carmo Museum',
-        camera_position: [-0.38064, -0.18216, 1.9139],
-        camera_look_at: [-0.12069, -0.21909, 1.02961],
-        camera_up: [-0.03172, -0.99894, -0.03324],
-        text: 'this is a test'
-      },
-      {
-        value: 'parque_das_aguas_lisbon.ksplat',
-        label: 'Lisbon - Parque das Aguas',
-        camera_position: [-2.6369, -0.24802, 0.44527],
-        camera_look_at: [-1.8299, -0.18557, 0.01454],
-        camera_up: [-0.01529, -0.9998, 0.013],
-        text: 'this is a test'
-      },
-      {
-        value: 'berlin_wall_horse_statue.ksplat',
-        label: 'Berlin - The Day The Wall Came Down',
-        camera_position: [-2.01948, -0.16754, 0.46328],
-        camera_look_at: [-1.29397, -0.2221, 0.06908],
-        camera_up: [-0.01529, -0.9998, 0.013],
         text: 'this is a test'
       }
     ]
@@ -188,8 +176,8 @@ export default {
         initialCameraPosition: selectedOptionData.value.camera_position,
         initialCameraLookAt: selectedOptionData.value.camera_look_at,
         sphericalHarmonicsDegree: props.sphericalHarmonicsDegree,
-        rootElement: container.value
-        // sharedMemoryForWorkers: false //remove when the Isolation issue is solved
+        rootElement: container.value,
+        sharedMemoryForWorkers: false //remove when the Isolation issue is solved
       })
 
       viewer
