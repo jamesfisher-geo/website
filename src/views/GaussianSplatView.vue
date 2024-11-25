@@ -4,7 +4,7 @@
       :mode="0"
       :camera-up="[0, -1, -0.17]"
       :initial-camera-position="[-5, -1, -1]"
-      :initial-camera-look-at="[-1.72477, 0.05395, -0.00147]"
+      :initial-camera-look-at="[0, 0, 0]"
       :spherical-harmonics-degree="2"
       asset-path=""
     />
