@@ -5,7 +5,7 @@
       :camera-up="[0, -1, -0.17]"
       :initial-camera-position="[-5, -1, -1]"
       :initial-camera-look-at="[0, 0, 0]"
-      :spherical-harmonics-degree="2"
+      :spherical-harmonics-degree="0"
       asset-path=""
     />
   </div>

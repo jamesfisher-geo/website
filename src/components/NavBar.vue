@@ -9,7 +9,7 @@
       </div>
       <nav :class="['secondary-nav', { 'menu-open': isMenuOpen, homepage: isHomePage }]">
         <RouterLink v-if="!isHomePage" to="/" @click="closeMenu">Home</RouterLink>
-        <RouterLink to="/splats" @click="closeMenu">Gaussian Splats</RouterLink>
+        <RouterLink to="/splats" @click="closeMenu">3-D Journal</RouterLink>
         <RouterLink to="/contactme" @click="closeMenu">Contact Me</RouterLink>
       </nav>
     </div>
