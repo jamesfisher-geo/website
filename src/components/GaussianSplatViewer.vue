@@ -5,6 +5,7 @@
         {{ option.label }}
       </option>
     </select>
+    <button class="screenshot-button" @click="takeScreenshot" title="Take Screenshot">📸</button>
     <div class="instructions-window">
       <img
         src="../assets/help.svg"
@@ -277,6 +278,52 @@ Sources:
       }
     }
 
+    const takeScreenshot = () => {
+      if (!viewer) return
+
+      // Attempt to get the renderer
+      const renderer = viewer.renderer
+
+      // Check if renderer exists
+      if (!renderer) {
+        console.error('Renderer not found')
+        return
+      }
+
+      // Explicitly render the scene before capturing
+      viewer.render()
+
+      // Get the WebGL canvas
+      const canvas = renderer.domElement
+
+      // Create a temporary canvas to handle full resolution
+      const tempCanvas = document.createElement('canvas')
+      tempCanvas.width = canvas.width
+      tempCanvas.height = canvas.height
+
+      const tempContext = tempCanvas.getContext('2d')
+
+      try {
+        // Attempt to draw the canvas
+        tempContext.drawImage(canvas, 0, 0)
+
+        // Convert to data URL and trigger download
+        const dataURL = tempCanvas.toDataURL('image/png')
+
+        // Verify data URL
+        if (dataURL.length < 1000) {
+          console.error('Empty or very small data URL')
+        }
+
+        const link = document.createElement('a')
+        link.download = `gaussian_splat_${selectedOptionData.value.label.replace(/\s+/g, '_')}_screenshot.png`
+        link.href = dataURL
+        link.click()
+      } catch (error) {
+        console.error('Error capturing screenshot:', error)
+      }
+    }
+
     return {
       container,
       options,
@@ -286,7 +333,8 @@ Sources:
       isInstructionsExpanded,
       toggleInstructions,
       isDescriptionExpanded,
-      toggleDescription
+      toggleDescription,
+      takeScreenshot
     }
   }
 }
@@ -351,13 +399,11 @@ Sources:
   height: 40px;
   filter: brightness(0) invert(1);
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 5px;
   border-radius: 50%;
   cursor: pointer;
   position: absolute;
-  left: 0.5vw;
-  bottom: 10px;
-  z-index: 2;
+  left: 0.1vw;
+  bottom: 0.1vh;
 }
 
 .description-window {
@@ -440,5 +486,26 @@ Sources:
 
 .markdown-content p:last-child {
   margin-bottom: 0;
+}
+
+.screenshot-button {
+  position: absolute;
+  left: 0.1vw;
+  bottom: 0.1vh;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.screenshot-button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
 }
 </style>
