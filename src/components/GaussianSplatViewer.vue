@@ -419,6 +419,7 @@ Sources:
   height: 25vh;
   left: 0;
   bottom: 0;
+  z-index: 1000;
 }
 
 .description-content {
@@ -490,8 +491,8 @@ Sources:
 
 .screenshot-button {
   position: absolute;
-  left: 0.1vw;
-  bottom: 0.1vh;
+  right: 0.7vw;
+  bottom: 1.1vh;
   background-color: rgba(255, 255, 255, 0.7);
   border: none;
   border-radius: 50%;
@@ -501,7 +502,6 @@ Sources:
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 1000;
   transition: background-color 0.3s ease;
 }
 
