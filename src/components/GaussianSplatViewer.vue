@@ -5,12 +5,18 @@
         {{ option.label }}
       </option>
     </select>
-    <button class="screenshot-button" @click="takeScreenshot" title="Take Screenshot">📸</button>
+    <img
+      class="screenshot-button"
+      src="../assets/screenshot.svg"
+      @click="takeScreenshot"
+      title="Screenshot"
+    />
     <div class="instructions-window">
       <img
         src="../assets/help.svg"
         alt="Instructions Logo"
         class="instructions-logo"
+        title="Help"
         @click="toggleInstructions"
       />
       <div class="instructions-content" :class="{ expanded: isInstructionsExpanded }">
@@ -49,6 +55,7 @@
         src="../assets/info.svg"
         alt="Description Logo"
         class="description-logo"
+        title="Description"
         @click="toggleDescription"
       />
       <div class="description-content">
@@ -490,19 +497,15 @@ Sources:
 }
 
 .screenshot-button {
-  position: absolute;
-  right: 0.7vw;
-  bottom: 1.1vh;
-  background-color: rgba(255, 255, 255, 0.7);
-  border: none;
-  border-radius: 50%;
   width: 40px;
   height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  filter: brightness(0) invert(1);
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  position: absolute;
+  right: 0.6vw;
+  bottom: 1.25vh;
 }
 
 .screenshot-button:hover {

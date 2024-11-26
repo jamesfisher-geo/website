@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-help" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <circle cx="12" cy="12" r="9" style="stroke: rgba(255, 255, 255, 0.8);"/>
+  <rect x="6.574" y="8.752" width="10.853" height="6.713" style="stroke-width: 1px; stroke: rgba(255, 255, 255, 0.8);"/>
+  <rect x="11.535" y="6.664" width="4.363" height="2.088" style="stroke-width: 1px; stroke: rgba(255, 255, 255, 0.8);"/>
+  <ellipse style="stroke-width: 1px; stroke: rgba(255, 255, 255, 0.8);" cx="11.889" cy="12.091" rx="2.033" ry="1.958"/>
+</svg>
