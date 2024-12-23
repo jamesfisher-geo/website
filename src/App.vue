@@ -12,6 +12,7 @@ import { RouterView } from 'vue-router'
 import NavBar from './components/NavBar.vue'
 </script>
 
+<!-- test -->
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
 
