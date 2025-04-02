@@ -111,27 +111,8 @@ export default {
 
     const options = [
       {
-        value: 'parque_das_aguas_lisbon.ksplat',
-        label: 'Porto - Parque das Aguas',
-        date: 'May 2024',
-        camera_position: [-2.6369, -0.24802, 0.44527],
-        camera_look_at: [-1.8299, -0.18557, 0.01454],
-        camera_up: [-0.01529, -0.9998, 0.013],
-        text: `With a few hours before our train, my partner and I explored the nearby Parque Das Águas. We were pleasantly surprised to discover a serene rose garden where we took turns exploring while the other watched our bags.
-During my exploration, I followed a forest trail with several historic drinking fountains. These fountains had been relocated by Águas do Porto, the municipal water utility that maintains the park, to preserve Porto's historical connection with water as a human resource. On my return, I discovered a statue on a scenic overlook above the Douro river.
-The statue, "Self-portrait as a Fountain" by Julião Sarmento, was inspired by a photograph by, and of, artist Bruce Nauman housed at the Whitney Museum in New York. The lighting, colors, and reflections off the water made this one of my favorite moments of the day.
-
-[Self Portrait as a Fountain - Bruce Nauman](https://whitney.org/collection/works/5714)
-
-Sources: 
-
-[Self-portrait as a fountain (Fat chance Bruce Nauman), Gardens of Nova Sintra, Porto](https://asfontesdaminhavida.blogs.sapo.pt/self-portrait-as-a-fountain-fat-chance-167000)
-
-[Julião Sarmento's female alter ego took to the streets](https://www.publico.pt/2017/07/10/culturaipsilon/noticia/o-alterego-de-juliao-sarmento-no-feminino-1778586)`
-      },
-      {
         value: 'carmo_convent_tomb.ksplat',
-        label: 'Lisbon - Carmo Museum',
+        label: 'King Fernando The First',
         date: 'May 2024',
         camera_position: [-0.38064, -0.18216, 1.9139],
         camera_look_at: [-0.12069, -0.21909, 1.02961],
@@ -145,8 +126,27 @@ Sources:
 [The Carmo Ruins and Archaeological museum](https://www.museuarqueologicodocarmo.pt/mac/folhetoMAC_EN.pdf)`
       },
       {
+        value: 'parque_das_aguas_lisbon.ksplat',
+        label: 'Self-portrait as a Fountain',
+        date: 'May 2024',
+        camera_position: [-2.6369, -0.24802, 0.44527],
+        camera_look_at: [-1.8299, -0.18557, 0.01454],
+        camera_up: [-0.01529, -0.9998, 0.013],
+        text: `With a few hours before our train from Porto to Lisbon, my partner and I explored the nearby Parque Das Águas. We were pleasantly surprised to discover a serene rose garden where we took turns exploring while the other watched our bags.
+During my exploration, I followed a forest trail with several historic drinking fountains. These fountains had been relocated by Águas do Porto, the municipal water utility that maintains the park, to preserve Porto's historical connection with water as a human resource. On my return, I discovered a statue on a scenic overlook above the Douro river.
+The statue, "Self-portrait as a Fountain" by Julião Sarmento, was inspired by a photograph by, and of, artist Bruce Nauman housed at the Whitney Museum in New York. The lighting, colors, and reflections off the water made this one of my favorite moments of the day.
+
+[Self Portrait as a Fountain - Bruce Nauman](https://whitney.org/collection/works/5714)
+
+Sources: 
+
+[Self-portrait as a fountain (Fat chance Bruce Nauman), Gardens of Nova Sintra, Porto](https://asfontesdaminhavida.blogs.sapo.pt/self-portrait-as-a-fountain-fat-chance-167000)
+
+[Julião Sarmento's female alter ego took to the streets](https://www.publico.pt/2017/07/10/culturaipsilon/noticia/o-alterego-de-juliao-sarmento-no-feminino-1778586)`
+      },
+      {
         value: 'berlin_wall_horse_statue.ksplat',
-        label: 'Berlin - The Day The Wall Came Down',
+        label: 'The Day The Wall Came Down',
         date: 'June 2024',
         camera_position: [-2.01948, -0.16754, 0.46328],
         camera_look_at: [-1.29397, -0.2221, 0.06908],
@@ -163,7 +163,7 @@ Sources:
       },
       {
         value: 'dragon.splat',
-        label: 'Berlin - St. George The Dragon Slayer',
+        label: 'St. George The Dragon Slayer',
         date: 'December 2023',
         camera_position: [3.29772, 0.72899, -3.31063],
         camera_look_at: [1.73379, 0.24299, -1.45236],
@@ -179,7 +179,7 @@ Sources:
       },
       {
         value: 'herodotus.ksplat',
-        label: 'Athens - Herodotus',
+        label: 'Herodotus',
         date: 'November 2023',
         camera_position: [2.77463, -1.37617, -4.58333],
         camera_look_at: [-0.74575, -1.73235, -0.2007],
@@ -197,14 +197,23 @@ Sources:
 `
       },
       {
+        value: 'parque_das_virtudes_porto.ksplat',
+        label: 'The Maiden in the Park',
+        date: 'February 2024',
+        camera_position: [-1.21595, 1.77021, 0.68458],
+        camera_look_at: [-0.24377, -0.45653, 0.24981],
+        camera_up: [-0.04495, 0.45538, 0.88916],
+        text: `Memories from exploring Porto for the first time`
+      },
+      {
         value: 'carmo_convent_fountain.ksplat',
-        label: 'Lisbon - Carmo Fountain Cat',
+        label: 'Museum Cat',
         date: 'May 2024',
         camera_position: [-1.51938, -0.90622, 0.84376],
         camera_look_at: [-0.46384, -0.39367, 0.23109],
         camera_up: [0.10604, -0.99427, -0.01348],
         text: `
-The open-sir nave of the Museu Arqueológico do Carmo (Carmo Archaeological Museum) includes many arcitectural pieces including pediments, coats of arms, and columns. Although, my favorite part of the exhibit would have to be the cute cat curled up on this fountain :) 
+The open-air nave of the Museu Arqueológico do Carmo (Carmo Archaeological Museum) includes many arcitectural pieces including pediments, coats of arms, and columns. Although, my favorite part of the exhibit would have to be the cute cat curled up on this fountain :) 
 
 The Carmo Archaeological Museum was originally founded in 1389 as the Convent of Santa Maria of Carmo. The convent operated until the 1755 Lisbon earthquake, which destroyed the city center and caused the collapse of most of the convent roof. Today the museum houses artifacts from all periods of Portuguese history. 
 
