@@ -52,8 +52,8 @@ export const JOURNAL_TILESETS: readonly [SplatTileset, ...SplatTileset[]] = [
     date: 'May, 2024',
     location: 'Lisbon, Portugal',
     camera: {
-      position: [2.5, 1, 5],
-      lookAt: [0.6, -0.7, 0.4]
+      position: [1.83, -0.03, 0.55],
+      lookAt: [0.52, -0.17, 0.04]
     }
   })
 ]
