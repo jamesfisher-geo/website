@@ -17,6 +17,8 @@ vi.mock('./journalTilesets', async () => {
         url: 'https://example.com/first/tileset.json',
         title: 'First scene',
         description: 'The first description.',
+        date: '2026-01-01',
+        location: 'First site',
         camera
       }),
       // Shares the first URL on purpose: entries are told apart by position, not URL.
@@ -24,6 +26,8 @@ vi.mock('./journalTilesets', async () => {
         url: 'https://example.com/first/tileset.json',
         title: 'Second scene',
         description: 'The second description.',
+        date: '2026-01-02',
+        location: 'Second site',
         camera
       })
     ]
@@ -65,7 +69,7 @@ describe('JournalPage', () => {
     expect(screen.getByRole('combobox', { name: 'Scene' })).toHaveDisplayValue('Second scene')
     expect(screen.getByText('The second description.')).toBeInTheDocument()
     expect(screen.queryByText('The first description.')).not.toBeInTheDocument()
-    expect(screen.getByText(/Second scene · 3DGS/)).toBeInTheDocument()
+    expect(screen.getByText(/Second scene · Second site/)).toBeInTheDocument()
     await waitFor(() =>
       expect(mockCreate).toHaveBeenLastCalledWith(
         expect.objectContaining({ tileset: JOURNAL_TILESETS[1] })
