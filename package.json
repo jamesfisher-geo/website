@@ -13,9 +13,13 @@
     "lint:fix": "eslint . --fix && prettier --write ."
   },
   "dependencies": {
+    "3d-tiles-renderer": "^0.5.3",
+    "3d-tiles-rendererjs-3dgs-plugin": "^0.3.1",
+    "gaussian-splat-lite": "^1.6.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "react-router-dom": "^7.18.5"
+    "react-router-dom": "^7.18.5",
+    "three": "^0.187.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
@@ -25,6 +29,7 @@
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.187.0",
     "@vitejs/plugin-react": "^6.1.2",
     "eslint": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",

@@ -8,8 +8,9 @@ interface NavItem {
 }
 
 const NAV_ITEMS: readonly NavItem[] = [
+  { to: '/', label: 'Home' },
   { to: '/journal', label: '3-D Journal' },
-  { to: '/resume', label: 'Resume' },
+  // { to: '/resume', label: 'Resume' },
   { to: '/contact', label: 'Contact Me' }
 ]
 

@@ -19,3 +19,24 @@ export function ButtonLink({ to, children, variant = 'secondary', className }: B
     </Link>
   )
 }
+
+export interface ButtonAnchorProps extends Omit<ButtonLinkProps, 'to'> {
+  /** An address outside the app, such as a mailto: or https: URL. */
+  href: string
+}
+
+export function ButtonAnchor({
+  href,
+  children,
+  variant = 'secondary',
+  className
+}: ButtonAnchorProps) {
+  return (
+    <a
+      href={href}
+      className={[styles.button, styles[variant], className].filter(Boolean).join(' ')}
+    >
+      {children}
+    </a>
+  )
+}

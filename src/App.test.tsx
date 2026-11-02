@@ -13,7 +13,9 @@ describe('App routing', () => {
     const user = userEvent.setup()
     renderWithRouter(<App />)
     await user.click(screen.getByRole('link', { name: 'Contact Me' }))
-    expect(screen.getByRole('heading', { level: 1, name: 'Contact me' })).toBeInTheDocument()
+    expect(
+      screen.getByText('Contact me through any of the following platforms')
+    ).toBeInTheDocument()
   })
 
   it('still serves the resume page directly', () => {
