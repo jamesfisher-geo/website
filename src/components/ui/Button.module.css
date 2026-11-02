@@ -1,0 +1,57 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--tap-target);
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-print);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
+}
+
+.button:hover {
+  text-decoration: none;
+}
+
+.primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.primary:hover {
+  background: var(--ink-blue);
+  border-color: var(--ink-blue);
+}
+
+.secondary {
+  background: transparent;
+  color: var(--ink);
+}
+
+.secondary:hover {
+  background: var(--paper-sunken);
+}
+
+/* No box: just the label, underlined on hover like a link (DESIGN.md §4) */
+.text {
+  padding-inline: 0;
+  border-color: transparent;
+  background: transparent;
+  color: var(--ink);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+.text:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}

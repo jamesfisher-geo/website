@@ -1,0 +1,33 @@
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import tseslint from 'typescript-eslint'
+import prettier from 'eslint-config-prettier'
+
+export default tseslint.config(
+  { ignores: ['dist', 'coverage'] },
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    languageOptions: {
+      ecmaVersion: 2022,
+      globals: globals.browser
+    },
+    plugins: {
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh
+    },
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      'no-restricted-exports': ['error', { restrictDefaultExports: { direct: true } }]
+    }
+  },
+  {
+    // Config files are required by their tools to use default exports
+    files: ['vite.config.ts'],
+    rules: { 'no-restricted-exports': 'off' }
+  },
+  prettier
+)

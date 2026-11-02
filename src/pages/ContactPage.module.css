@@ -1,0 +1,49 @@
+/* Fills the viewport behind the page; the nav bar's own background covers its top. */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+
+/* Centered like the home page hero. The min-height centers it vertically under the nav bar. */
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  min-height: 60vh;
+  text-align: center;
+  animation: fade-up var(--dur-base) var(--ease-out) both;
+}
+
+.subtitle {
+  font-size: var(--text-lg);
+  color: var(--graphite);
+}
+
+.actions {
+  margin-top: var(--space-5);
+}
+
+/* A single row that wraps on narrow screens. */
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
