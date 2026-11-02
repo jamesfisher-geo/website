@@ -1,0 +1,13 @@
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--space-7) var(--gutter);
+}
+
+@media (min-width: 1024px) {
+  .main {
+    padding-block: var(--space-9);
+  }
+}

@@ -33,8 +33,10 @@ jobs:
           node-version: 'lts/*'
       - name: Checkout
         uses: actions/checkout@v4
-      - run: npm install
+      - run: npm ci
       - run: npm run build
+      - name: SPA fallback for client-side routes
+        run: cp ./dist/index.html ./dist/404.html
       - name: Create .nojekyll file
         run: touch ./dist/.nojekyll
       - name: Setup Pages

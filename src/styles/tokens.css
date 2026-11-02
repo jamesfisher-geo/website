@@ -1,0 +1,108 @@
+/* Design tokens — source of truth is DESIGN.md §2. Never hard-code these values in components. */
+:root {
+  /* ── Paper & ink ─────────────────────────── */
+  --paper: #f6f2ea;
+  --paper-raised: #fbf9f4;
+  --paper-sunken: #eee8dc;
+  --rule: #e2dacb;
+  --rule-strong: #cfc5b3;
+
+  --ink: #1f1d1a;
+  --graphite: #5e5a53;
+  --pencil: #8f897e;
+
+  /* ── Accents (use sparingly) ──────────────── */
+  --ink-blue: #2b4a75;
+  --ink-blue-soft: #dce3ec;
+  --red-pencil: #b4452f;
+  --highlighter: #f3e3a1;
+  --moss: #4f6b4a;
+
+  /* ── Type families ────────────────────────── */
+  --font-print: 'Source Serif 4', 'Iowan Old Style', Georgia, serif;
+  --font-hand: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
+  --font-instr: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ── Type scale (1.25 ratio, fluid at top) ── */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5625rem;
+  --text-2xl: clamp(1.75rem, 1.4rem + 1.5vw, 2.25rem);
+  --text-3xl: clamp(2.25rem, 1.6rem + 3vw, 3.75rem);
+  --text-hand: 1.5rem;
+
+  --leading-tight: 1.15;
+  --leading-body: 1.65;
+
+  /* ── Spacing (4px base) ───────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 144px;
+
+  /* ── Layout ───────────────────────────────── */
+  --measure: 66ch;
+  --container: 1120px;
+  --margin-col: 220px;
+  --gutter: clamp(16px, 4vw, 40px);
+
+  /* ── Shape & depth ────────────────────────── */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --border: 1px solid var(--rule);
+  --shadow-paper: 0 1px 0 var(--rule), 0 8px 24px -16px rgb(31 29 26 / 0.18);
+
+  /* ── Motion ───────────────────────────────── */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur-base: 280ms;
+  --dur-draw: 900ms;
+
+  --tap-target: 44px;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #1a1917;
+    --paper-raised: #22211e;
+    --paper-sunken: #151412;
+    --rule: #34312c;
+    --rule-strong: #4a463f;
+    --ink: #ece6da;
+    --graphite: #b5aea2;
+    --pencil: #847e73;
+    --ink-blue: #8fb0da;
+    --ink-blue-soft: #243246;
+    --red-pencil: #e0806b;
+    --highlighter: #5a4e22;
+    --moss: #8dae86;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --paper: #1a1917;
+  --paper-raised: #22211e;
+  --paper-sunken: #151412;
+  --rule: #34312c;
+  --rule-strong: #4a463f;
+  --ink: #ece6da;
+  --graphite: #b5aea2;
+  --pencil: #847e73;
+  --ink-blue: #8fb0da;
+  --ink-blue-soft: #243246;
+  --red-pencil: #e0806b;
+  --highlighter: #5a4e22;
+  --moss: #8dae86;
+  color-scheme: dark;
+}
