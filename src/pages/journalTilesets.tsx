@@ -8,16 +8,16 @@ export const JOURNAL_TILESETS: readonly [SplatTileset, ...SplatTileset[]] = [
     description: (
       <>
         <p>
-          In the apse of the Museu Arqueológico do Carmo (Carmo Archaeological Museum)
-          lies the Tomb of King Ferdinand the First, King of Portugal from 1367 until
-          his death in 1383. Ferdinand had only one child - his daughter, Beatrice, who married 
-          João the First of Castile. The union of Beatrice and João was widely unpopular because 
-          there had been several wars between the Portuguese and Castilians, and the prospect
-          of Castilian leadership threatened Portuguese independence. This situation lead to a 
-          two-year-long civil war after Ferdinand's death, which was won by the merchant-backed 
-          independence movement that recognized João of Avis as king. This is regarded as the first instance of 
-          Portuguese national resistance, a practice that would come to define Portuguese 
-          national identity in the April 25th, 1974, revolution.
+          In the apse of the Museu Arqueológico do Carmo (Carmo Archaeological Museum) lies the Tomb
+          of King Ferdinand the First, King of Portugal from 1367 until his death in 1383. Ferdinand
+          had only one child - his daughter, Beatrice, who married João the First of Castile. The
+          union of Beatrice and João was widely unpopular because there had been several wars
+          between the Portuguese and Castilians, and the prospect of Castilian leadership threatened
+          Portuguese independence. This situation lead to a two-year-long civil war after
+          Ferdinand's death, which was won by the merchant-backed independence movement that
+          recognized João of Avis as king. This is regarded as the first instance of Portuguese
+          national resistance, a practice that would come to define Portuguese national identity in
+          the April 25th, 1974, revolution.
         </p>
         <p>
           The Carmo Archaeological Museum was originally founded in 1389 as the Convent of Santa
@@ -49,8 +49,8 @@ export const JOURNAL_TILESETS: readonly [SplatTileset, ...SplatTileset[]] = [
         </p>
       </>
     ),
-    date:  "May, 2024",
-    location: "Lisbon, Portugal",
+    date: 'May, 2024',
+    location: 'Lisbon, Portugal',
     camera: {
       position: [2.5, 1, 5],
       lookAt: [0.6, -0.7, 0.4]

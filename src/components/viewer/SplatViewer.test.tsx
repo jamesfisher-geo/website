@@ -25,6 +25,8 @@ const tileset = new SplatTileset({
   url: 'https://example.com/tileset.json',
   title: 'Test scene',
   description: 'A scene for tests.',
+  date: '2026-01-01',
+  location: 'Test site',
   camera: { position: [1, 2, 3], lookAt: [0, 0, 0] }
 })
 
