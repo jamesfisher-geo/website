@@ -12,6 +12,7 @@ import {
   Matrix4,
   Object3D,
   PerspectiveCamera,
+  Quaternion,
   Scene,
   Sphere,
   Vector2,
@@ -21,9 +22,14 @@ import {
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { WebGPURenderer } from 'three/webgpu'
 import { fetchTerrainHeight } from './fetchTerrainHeight'
+import { createKeyboardFlight } from './keyboardFlight'
 import type { SplatTileset, Vec3 } from './SplatTileset'
 
 const MAX_PIXEL_RATIO = 2
+/** Longest frame step for keyboard movement, so a stalled tab doesn't jump the camera on return. */
+const MAX_FRAME_SECONDS = 0.1
+const KEYBOARD_HINT =
+  'W A S D to move, E and Q for up and down, arrow keys to look, Shift for faster.'
 
 const ESRI_WORLD_IMAGERY =
   'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
@@ -112,6 +118,12 @@ interface CameraRig {
   /** Other tile renderers to update, resize and dispose along with the splat tiles. */
   extraTiles: TilesRenderer[]
   ariaHint: string
+  /** World up at the camera, for keyboard movement. */
+  getUp: (target: Vector3) => Vector3
+  /** Keyboard movement speed, in world units per second. */
+  getMoveSpeed: () => number
+  /** Keeps the controls in step after the keyboard moves the camera. */
+  onKeyboardMove: (translation: Vector3, rotation: Quaternion) => void
   update: () => void
   resetView: () => void
   onRootTileset: (tiles: TilesRenderer) => void
@@ -176,8 +188,10 @@ function prefersReducedMotion() {
 function createOrbitRig({ camera, canvas, tileset, requestRender }: CameraRigOptions): CameraRig {
   const controls = new OrbitControls(camera, canvas)
   controls.enableDamping = !prefersReducedMotion()
-  controls.listenToKeyEvents(canvas)
   controls.addEventListener('change', requestRender)
+  // Set from the bounding sphere once the tileset loads.
+  let sceneRadius = 1
+  const toTarget = new Vector3()
 
   const resetView = () => {
     camera.position.set(...tileset.camera.position)
@@ -188,12 +202,21 @@ function createOrbitRig({ camera, canvas, tileset, requestRender }: CameraRigOpt
 
   return {
     extraTiles: [],
-    ariaHint: 'Drag to orbit, arrow keys to pan.',
+    ariaHint: 'Drag to orbit.',
+    getUp: (target) => target.copy(camera.up),
+    getMoveSpeed: () =>
+      Math.max(0.5 * camera.position.distanceTo(controls.target), 0.05 * sceneRadius),
+    onKeyboardMove(translation, rotation) {
+      // Carry the orbit target along, so OrbitControls keeps the new view instead of snapping back.
+      toTarget.subVectors(controls.target, camera.position).add(translation)
+      controls.target.copy(camera.position).add(toTarget.applyQuaternion(rotation))
+    },
     update: () => controls.update(),
     resetView,
     onRootTileset(tiles) {
       const sphere = new Sphere()
       if (!tiles.getBoundingSphere(sphere)) return
+      sceneRadius = sphere.radius
       camera.near = sphere.radius * 0.005
       camera.far = sphere.radius * 20
       camera.updateProjectionMatrix()
@@ -286,11 +309,24 @@ function createGlobeRig({
   resetView()
 
   const forward = new Vector3()
+  const sceneOrigin = new Vector3()
   const cartographic = { lat: 0, lon: 0, height: 0 }
 
   return {
     extraTiles: [surface],
     ariaHint: 'Drag to rotate, scroll to zoom.',
+    getUp: (target) => surface.ellipsoid.getPositionToNormal(camera.position, target),
+    getMoveSpeed() {
+      // About 5 m/s when 10 m from the scan, and fast enough to cross the globe from orbit.
+      if (localToWorld) {
+        sceneOrigin.setFromMatrixPosition(localToWorld)
+        return Math.max(1, 0.5 * camera.position.distanceTo(sceneOrigin))
+      }
+      surface.ellipsoid.getPositionToCartographic(camera.position, cartographic)
+      return Math.max(1, 0.5 * cartographic.height)
+    },
+    // GlobeControls reads the camera afresh every frame, and still keeps it above the terrain.
+    onKeyboardMove: () => {},
     update: () => controls.update(),
     resetView,
     onRootTileset(tiles) {
@@ -414,7 +450,15 @@ export async function createSplatScene({
 
   const rigOptions = { scene, camera, canvas, tileset, requestRender }
   const rig = tileset.globe ? createGlobeRig(rigOptions) : createOrbitRig(rigOptions)
-  canvas.setAttribute('aria-label', `3-D scene: ${tileset.title}. ${rig.ariaHint}`)
+  canvas.setAttribute('aria-label', `3-D scene: ${tileset.title}. ${rig.ariaHint} ${KEYBOARD_HINT}`)
+
+  const flight = createKeyboardFlight({
+    canvas,
+    camera,
+    getUp: rig.getUp,
+    getSpeed: rig.getMoveSpeed,
+    onMove: rig.onKeyboardMove
+  })
 
   const splatRenderer = new GaussianSplatRenderer({ renderer, onDirty: requestRender })
   scene.add(splatRenderer)
@@ -476,7 +520,12 @@ export async function createSplatScene({
     }
   })
 
+  let lastFrame = performance.now()
   void renderer.setAnimationLoop(() => {
+    const now = performance.now()
+    const deltaSeconds = Math.min((now - lastFrame) / 1000, MAX_FRAME_SECONDS)
+    lastFrame = now
+    if (flight.update(deltaSeconds)) requestRender()
     // These keep running on idle frames: damping, tile loading and fades all advance here.
     rig.update()
     camera.updateMatrixWorld()
@@ -512,6 +561,7 @@ export async function createSplatScene({
     dispose() {
       void renderer.setAnimationLoop(null)
       resizeObserver.disconnect()
+      flight.dispose()
       rig.dispose()
       scene.remove(tiles.group)
       tiles.dispose()

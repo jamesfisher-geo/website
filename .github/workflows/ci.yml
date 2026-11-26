@@ -1,0 +1,32 @@
+# Checks every pull request, and every merge into main.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: ['main']
+
+permissions:
+  contents: read
+
+# A new push to the same pull request or branch cancels the run it replaces.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          # Same as the Pages deploy workflow.
+          node-version: 'lts/*'
+          cache: npm
+      - run: npm ci
+      # The deploy build runs `tsc -b`, so type errors in tests would break it.
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run test -- --run

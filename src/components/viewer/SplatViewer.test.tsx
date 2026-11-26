@@ -86,6 +86,26 @@ describe('SplatViewer', () => {
     expect(screen.getByText('Loading tiles…')).toBeInTheDocument()
   })
 
+  it('shows the keyboard controls while the scene has focus', async () => {
+    mockCreate.mockImplementation(async ({ container }) => {
+      const canvas = document.createElement('canvas')
+      canvas.tabIndex = 0
+      container.appendChild(canvas)
+      return { resetView, getDebugInfo, dispose }
+    })
+    const user = userEvent.setup()
+    renderViewer()
+    await startedOptions()
+    const hint = /W A S D move/
+    expect(screen.queryByText(hint)).toBeNull()
+
+    await user.tab()
+    expect(screen.getByText(hint)).toBeInTheDocument()
+
+    await user.tab()
+    expect(screen.queryByText(hint)).toBeNull()
+  })
+
   it('leaves out the imagery credit for scenes not on a globe', async () => {
     renderViewer()
     await startedOptions()
