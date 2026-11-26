@@ -1,22 +1,26 @@
 /* Design tokens — source of truth is DESIGN.md §2. Never hard-code these values in components. */
 :root {
   /* ── Paper & ink ─────────────────────────── */
-  --paper: #f6f2ea;
-  --paper-raised: #fbf9f4;
-  --paper-sunken: #eee8dc;
-  --rule: #e2dacb;
-  --rule-strong: #cfc5b3;
+  --paper: #f4edc6; /* USGS sheet paper (scan: #f4eebb) */
+  --paper-raised: #f9f6dc; /* sheet margin (scan: #f8f6cd) */
+  --paper-sunken: #ebe2b8;
+  --rule: #e0d3a4;
+  --rule-strong: #c9b783;
 
-  --ink: #1f1d1a;
-  --graphite: #5e5a53;
-  --pencil: #8f897e;
+  --ink: #221c14; /* warm engraving black */
+  --graphite: #5c5446;
+  --pencil: #8a7f69;
 
   /* ── Accents (use sparingly) ──────────────── */
   --ink-blue: #2b4a75;
   --ink-blue-soft: #dce3ec;
   --red-pencil: #b4452f;
-  --highlighter: #f3e3a1;
+  --highlighter: #ead27e;
   --moss: #4f6b4a;
+
+  /* ── Survey linework (texture, not accent) ── */
+  --contour: #804017; /* index contours: USGS contour brown, sampled from the scan */
+  --contour-soft: #b17949; /* intermediate contours, sampled from the scan */
 
   /* ── Type families ────────────────────────── */
   --font-print: 'Source Serif 4', 'Iowan Old Style', Georgia, serif;
@@ -58,7 +62,7 @@
   --radius-sm: 2px;
   --radius-md: 4px;
   --border: 1px solid var(--rule);
-  --shadow-paper: 0 1px 0 var(--rule), 0 8px 24px -16px rgb(31 29 26 / 0.18);
+  --shadow-paper: 0 1px 0 var(--rule), 0 8px 24px -16px rgb(34 28 20 / 0.18);
 
   /* ── Motion ───────────────────────────────── */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -73,36 +77,40 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --paper: #1a1917;
-    --paper-raised: #22211e;
-    --paper-sunken: #151412;
-    --rule: #34312c;
-    --rule-strong: #4a463f;
-    --ink: #ece6da;
-    --graphite: #b5aea2;
-    --pencil: #847e73;
+    --paper: #1c1a13;
+    --paper-raised: #25221a;
+    --paper-sunken: #16140e;
+    --rule: #38332a;
+    --rule-strong: #4f4834;
+    --ink: #eee6cc;
+    --graphite: #b8ae94;
+    --pencil: #887e68;
     --ink-blue: #8fb0da;
     --ink-blue-soft: #243246;
     --red-pencil: #e0806b;
     --highlighter: #5a4e22;
     --moss: #8dae86;
+    --contour: #c08552;
+    --contour-soft: #5f4429;
     color-scheme: dark;
   }
 }
 
 :root[data-theme='dark'] {
-  --paper: #1a1917;
-  --paper-raised: #22211e;
-  --paper-sunken: #151412;
-  --rule: #34312c;
-  --rule-strong: #4a463f;
-  --ink: #ece6da;
-  --graphite: #b5aea2;
-  --pencil: #847e73;
+  --paper: #1c1a13;
+  --paper-raised: #25221a;
+  --paper-sunken: #16140e;
+  --rule: #38332a;
+  --rule-strong: #4f4834;
+  --ink: #eee6cc;
+  --graphite: #b8ae94;
+  --pencil: #887e68;
   --ink-blue: #8fb0da;
   --ink-blue-soft: #243246;
   --red-pencil: #e0806b;
   --highlighter: #5a4e22;
   --moss: #8dae86;
+  --contour: #c08552;
+  --contour-soft: #5f4429;
   color-scheme: dark;
 }

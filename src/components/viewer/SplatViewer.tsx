@@ -18,12 +18,32 @@ function isFormControl(target: EventTarget | null) {
   )
 }
 
+/** The familiar four-corner glyph: corners point out to enter full screen, in to exit. */
+function FullscreenIcon({ exit }: { exit: boolean }) {
+  return (
+    <svg className={styles.icon} viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <path
+        d={
+          exit ? 'M6 2v4H2M10 2v4h4M6 14v-4H2M10 14v-4h4' : 'M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4'
+        }
+      />
+    </svg>
+  )
+}
+
+/** Element full screen isn't available everywhere (e.g. iPhone Safari), so the control hides. */
+function canFullscreen() {
+  return typeof document !== 'undefined' && document.fullscreenEnabled === true
+}
+
 export function SplatViewer({ tileset, caption }: SplatViewerProps) {
+  const viewerRef = useRef<HTMLDivElement>(null)
   const hostRef = useRef<HTMLDivElement>(null)
   const sceneRef = useRef<SplatSceneHandle | null>(null)
   const [status, setStatus] = useState<SplatSceneStatus>({ kind: 'loading', progress: 0 })
   const [debugOpen, setDebugOpen] = useState(false)
   const [focused, setFocused] = useState(false)
+  const [fullscreen, setFullscreen] = useState(false)
   const getDebugInfo = useCallback(() => sceneRef.current?.getDebugInfo() ?? null, [])
 
   useEffect(() => {
@@ -37,6 +57,18 @@ export function SplatViewer({ tileset, caption }: SplatViewerProps) {
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
+
+  useEffect(() => {
+    // Also catches Esc and the browser's own exit, which bypass the button.
+    const onChange = () => setFullscreen(document.fullscreenElement === viewerRef.current)
+    document.addEventListener('fullscreenchange', onChange)
+    return () => document.removeEventListener('fullscreenchange', onChange)
+  }, [])
+
+  const toggleFullscreen = () => {
+    const request = fullscreen ? document.exitFullscreen() : viewerRef.current?.requestFullscreen()
+    request?.catch((error: unknown) => console.error('Full screen request failed', error))
+  }
 
   useEffect(() => {
     const container = hostRef.current
@@ -73,6 +105,7 @@ export function SplatViewer({ tileset, caption }: SplatViewerProps) {
     <figure className={styles.figure}>
       {/* Focus events bubble from the canvas, the only focusable thing in the viewer. */}
       <div
+        ref={viewerRef}
         className={styles.viewer}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
@@ -100,6 +133,30 @@ export function SplatViewer({ tileset, caption }: SplatViewerProps) {
             Loading tiles… {/* Hidden from screen readers, which would announce every percent. */}
             <span aria-hidden="true">{Math.round(status.progress * 100)}%</span>
           </p>
+        )}
+
+        {/* Inside the viewer, so the controls stay reachable while it fills the screen. */}
+        {status.kind === 'ready' && (fullscreen || canFullscreen()) && (
+          <div className={styles.controls}>
+            {fullscreen && (
+              <button
+                type="button"
+                className={styles.control}
+                onClick={() => sceneRef.current?.resetView()}
+              >
+                Reset view
+              </button>
+            )}
+            <button
+              type="button"
+              className={`${styles.control} ${styles.iconControl}`}
+              aria-label={fullscreen ? 'Exit full screen' : 'Full screen'}
+              title={fullscreen ? 'Exit full screen' : 'Full screen'}
+              onClick={toggleFullscreen}
+            >
+              <FullscreenIcon exit={fullscreen} />
+            </button>
+          </div>
         )}
 
         {status.kind === 'error' && (

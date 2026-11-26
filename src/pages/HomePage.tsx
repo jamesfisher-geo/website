@@ -1,3 +1,4 @@
+import { GraticuleCrosses } from '@/components/map/GraticuleCrosses'
 import { ContourTexture } from '@/components/sketch/ContourTexture'
 import { ButtonLink } from '@/components/ui/Button'
 import styles from './HomePage.module.css'
@@ -6,6 +7,7 @@ export function HomePage() {
   return (
     <main className={styles.hero}>
       <ContourTexture />
+      <GraticuleCrosses />
       <div className={styles.content}>
         <p className="eyebrow">N 40.65° · W 73.96°</p>
         <h1 className={styles.name}>James A. Fisher</h1>

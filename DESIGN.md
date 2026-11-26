@@ -8,7 +8,7 @@
 
 ## 1. The idea in one paragraph
 
-The site should feel like a **researcher's field notebook laid on top of a precise map**. It's quiet, warm paper, mostly set in a calm serif. **Handwritten annotations** appear only where a person would actually scribble: labels, margin notes, circles, arrows. **Monospaced coordinates and data** show it's a serious, measurement-driven tool. The tone borrows from geospatial/earth-intelligence companies (inspiration: atlasai.co): understated, confident, data-first. The texture comes from a hand-kept journal.
+The site should feel like a **researcher's field notebook laid on top of a precise map**. It's quiet, cream survey-sheet paper, mostly set in a calm serif. **Handwritten annotations** appear only where a person would actually scribble: labels, margin notes, circles, arrows. **Monospaced coordinates and data** show it's a serious, measurement-driven tool. The tone borrows from geospatial/earth-intelligence companies (inspiration: atlasai.co): understated, confident, data-first. The texture comes from a hand-kept journal. The cartographic reference is the **1930s–40s USGS topographic quadrangle**, specifically the Valley-and-Ridge sheets of central Pennsylvania (e.g. *Millheim, PA, 1937, 1:48,000*): brown contours on aged cream paper, packed into long parallel ridges, letter-spaced ridge names, and engraved map furniture.
 
 **Three voices, strict roles:**
 
@@ -29,22 +29,27 @@ Put these in `src/styles/tokens.css` and import once at the app root. **Never ha
 ```css
 :root {
   /* ── Paper & ink ─────────────────────────── */
-  --paper:        #F6F2EA;  /* page background: warm notebook paper */
-  --paper-raised: #FBF9F4;  /* cards, panels, popovers */
-  --paper-sunken: #EEE8DC;  /* inputs, code blocks, wells */
-  --rule:         #E2DACB;  /* ruled lines, dividers, borders */
-  --rule-strong:  #CFC5B3;  /* hover borders, table headers */
+  /* Sampled from the 1937 USGS Millheim, PA sheet and softened for reading. */
+  --paper:        #F4EDC6;  /* page background: aged survey-sheet cream (scan: #F4EEBB) */
+  --paper-raised: #F9F6DC;  /* cards, panels, popovers: the sheet's margin paper (scan: #F8F6CD) */
+  --paper-sunken: #EBE2B8;  /* inputs, code blocks, wells */
+  --rule:         #E0D3A4;  /* ruled lines, dividers, borders */
+  --rule-strong:  #C9B783;  /* hover borders, table headers */
 
-  --ink:          #1F1D1A;  /* primary text: soft black, never #000 */
-  --graphite:     #5E5A53;  /* secondary text */
-  --pencil:       #8F897E;  /* tertiary text, captions, placeholders */
+  --ink:          #221C14;  /* primary text: warm engraving black, never #000 */
+  --graphite:     #5C5446;  /* secondary text */
+  --pencil:       #8A7F69;  /* tertiary text, captions, placeholders */
 
   /* ── Accents (use sparingly) ──────────────── */
   --ink-blue:     #2B4A75;  /* links, primary action, focus: fountain-pen blue */
   --ink-blue-soft:#DCE3EC;  /* blue tint backgrounds, selection */
   --red-pencil:   #B4452F;  /* annotations, highlights, errors: editor's red */
-  --highlighter:  #F3E3A1;  /* marker highlight behind text */
+  --highlighter:  #EAD27E;  /* marker highlight behind text (stronger, so it shows on yellow paper) */
   --moss:         #4F6B4A;  /* success, "land" data in maps */
+
+  /* ── Survey linework (texture, not accent) ── */
+  --contour:      #804017;  /* index contours: USGS contour brown, sampled from the scan */
+  --contour-soft: #B17949;  /* intermediate contours, sampled from the scan */
 
   /* ── Type families ────────────────────────── */
   --font-print: "Source Serif 4", "Iowan Old Style", Georgia, serif;
@@ -91,15 +96,18 @@ Put these in `src/styles/tokens.css` and import once at the app root. **Never ha
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #1A1917; --paper-raised: #22211E; --paper-sunken: #151412;
-    --rule: #34312C; --rule-strong: #4A463F;
-    --ink: #ECE6DA; --graphite: #B5AEA2; --pencil: #847E73;
+    --paper: #1C1A13; --paper-raised: #25221A; --paper-sunken: #16140E;
+    --rule: #38332A; --rule-strong: #4F4834;
+    --ink: #EEE6CC; --graphite: #B8AE94; --pencil: #887E68;
     --ink-blue: #8FB0DA; --ink-blue-soft: #243246;
     --red-pencil: #E0806B; --highlighter: #5A4E22; --moss: #8DAE86;
+    --contour: #C08552; --contour-soft: #5F4429;
   }
 }
 :root[data-theme="dark"] { /* repeat the dark values above */ }
 ```
+
+**Theme.** The site always uses the light survey-sheet palette: `index.html` sets `<html data-theme="light">`, so the OS dark-mode setting is ignored. Keep the dark tokens maintained for a future opt-in toggle, but design and review against light first.
 
 **Fonts.** Load from Google Fonts (all are free/OFL):
 
@@ -118,6 +126,7 @@ Only these weights: serif 400/600, hand 500/600, mono 400/500. **No bold-italic,
 - **The page is ~90% paper and ink.** Accents together should cover under 5% of any screen.
 - **One accent color per component.** Blue = "you can act on this." Red pencil = "a person noted this." Never use both on one button or card.
 - **Never** use gradients, neon, pure black `#000`, or pure white `#FFF` as backgrounds.
+- **Contour brown is a texture color, not an accent.** Use `--contour` / `--contour-soft` only for topographic linework and graticule crosses. Map furniture (scale bars, north arrows) stays in `--ink`, as on the printed sheets. Because the texture is capped at 40% opacity, it doesn't count toward the 5% accent budget. Never use it for text, buttons, or links.
 - The highlighter appears only *behind text*, at most once per section:
   ```css
   .highlight {
@@ -125,6 +134,7 @@ Only these weights: serif 400/600, hand 500/600, mono 400/500. **No bold-italic,
     padding: 0 0.15em;
   }
   ```
+- **The palette comes from the sheet.** Paper, rules, and contours are sampled from the 1937 Millheim scan. When adding a neutral, pull it from the same cream/brown family. Never use cool grays.
 - Text contrast must meet **WCAG AA**: `--ink` and `--graphite` on `--paper` pass. Use `--pencil` only for text ≥ 14px that isn't critical.
 
 ---
@@ -225,12 +235,27 @@ Rules:
 
 ## 8. Cartographic / data motifs
 
-These keep the journal look rooted in the geospatial, measurement-driven tone.
+These keep the journal look rooted in the geospatial, measurement-driven tone. The reference sheet is the 1937 USGS Millheim, PA quadrangle. Borrow its *grammar*, not its scan: never use the scan itself as a background image.
 
 - **Coordinates as metadata:** show lat/long, dates, and IDs in mono on cards, figures, and section labels.
-- **Contour-line texture:** a faint topographic SVG pattern (`--rule` stroke, 0.5–1px) is allowed in the hero or footer background at ≤ 40% opacity. Never behind body text.
-- **Scale bar & north arrow:** small mono/hand-drawn details for map and viewer UI.
-- **Grid ticks:** tiny 4px tick marks at container corners can suggest a survey sheet. Optional, and only in the hero.
+- **Contour texture: Valley and Ridge.** A faint topographic SVG is allowed at ≤ 40% opacity in the hero, the footer, or as a fixed full-page backdrop on the Journal and Contact pages. Outside those, never put it behind body text. It must read like a Pennsylvania ridge-and-valley sheet:
+  - **Long parallel ridges**, all trending the same way (ENE, about −17° in SVG space, rising to the right). Each ridge is a stack of **nested, elongated closed contours**: narrow across, long along the axis.
+  - **Tight flanks, open valleys.** Lines bunch on the slopes and leave wide empty valley floors between ridges. Keep the space behind headline text empty.
+  - **Noses and gaps.** Ridge ends taper to a point or round off bluntly. Allowed variations are an occasional water gap (one ridge split in two, collinear) and a plunging fold (two limbs opening from adjacent noses).
+  - **Index contours.** Every 5th contour is heavier (`--contour`, 1.25px). Intermediate contours are `--contour-soft` at 0.75px. Use `vector-effect: non-scaling-stroke`.
+  - **Density:** contours sit about 2 viewBox units apart on the flanks, with 12–27 levels per ridge, to echo the sheet's 20-foot interval.
+  - **Not uniform.** Real slopes aren't machined. Every ridge gets uneven contour spacing (benches and steep pitches), one steeper flank (a scarp against a dip slope), and 1–3 drainage gullies per flank that notch the lower contours and fade toward the crest. All of this is seeded, so it's deterministic.
+  - Contours **never cross** each other or other ridges. No concentric bullseyes, random blobs, or crossing waves.
+  - Generate the shapes with `src/utils/contours.ts` (deterministic and seeded) and lay them out in `src/components/sketch/contourLayout.ts`. Don't hand-draw new contour paths.
+- **Map lettering** (on map-like surfaces only, e.g. viewer overlays, figure plates, footer):
+  - Feature names (ridges, valleys, regions): mono, uppercase, wide-tracked (`letter-spacing: 0.4em`), `--graphite`, e.g. `T H I C K   M O U N T A I N`. Along with eyebrows, this is the only allowed ALL-CAPS use. Rotate it to follow the feature if needed.
+  - Water features (runs, creeks): italic serif, `--graphite`, e.g. *Elk Creek*.
+  - Spot heights: mono `--text-xs` tabular numbers beside a 3px ink dot (`1916`).
+- **Graticule crosses.** Use `<GraticuleCrosses />` (`src/components/map/`) for faint 14px `+` marks in `--contour-soft` at the interior grid intersections (⅓ and ⅔ across and down), like the 5′ marks on the sheet. The contour texture stays full-bleed: **no neatline border, edge ticks, or corner coordinate labels** on the hero. The crosses are hidden below 640px, where they'd land on the hero text.
+- **Map furniture.**
+  - Scale bar: alternating filled/empty `--ink` segments, 4px tall, mono `--text-xs` labels beneath (`0  1  2  3  4 MILES`). Add a representative fraction above if it's meaningful (`1:48,000`).
+  - North arrow: a declination diagram (a true-north line topped with a small star, plus a magnetic-north line with a half arrowhead offset a few degrees) in `--ink` strokes. No filled compass roses.
+  - Datum notes: small mono lines like `CONTOUR INTERVAL 20 FEET · DATUM IS MEAN SEA LEVEL` in `--pencil`.
 
 ---
 
@@ -238,13 +263,14 @@ These keep the journal look rooted in the geospatial, measurement-driven tone.
 
 The viewer is the one place where content goes full-bleed and dark backgrounds are allowed. Its UI chrome still belongs to the notebook.
 
-- Canvas background: `--paper` on light pages (splats float on paper), or `#151412` for an immersive mode. Never pure black.
+- Canvas background: `--paper` on light pages (splats float on paper), or `#16140E` (dark `--paper-sunken`) for an immersive mode. Never pure black.
 - Overlay panels: `--paper-raised` at 92% opacity, `backdrop-filter: blur(8px)`, `--border`, `--radius-md`, positioned with `--space-4` inset.
 - HUD readouts (lat/long, altitude, tile count, FPS) in mono `--text-xs`, `--graphite`, tabular numbers.
-- Compass and scale bar in a hand-drawn style (`--ink` strokes).
+- Compass and scale bar follow the map furniture in §8 (declination north arrow, alternating-segment scale bar) with `--ink` strokes and a slightly hand-drawn line quality.
 - Points of interest: small ink dots (6px, `--red-pencil`) with a handwritten label and a short `<Arrow />`. Use HTML overlays (e.g. drei `<Html>`) so the fonts render crisply.
 - Loading state: a handwritten "loading tiles…" line plus a thin 1px progress rule in `--ink-blue`. No spinners.
 - The viewer has a visible "reset view" control and keyboard-accessible controls.
+- **Full screen:** a square overlay button with the standard four-corner glyph (corners out to enter, in to exit; `currentColor` 1.5px strokes; accessible name "Full screen" / "Exit full screen") sits in the viewer's bottom-left corner once the scene is ready. It uses the Fullscreen API on the viewer box, which goes edge to edge with no border or radius. While in full screen, "Reset view" also appears inside the viewer. Hide the control where the browser can't make an element full screen (e.g. iPhone Safari).
 
 ---
 
@@ -280,11 +306,12 @@ Before finishing any UI task, check every line:
 - [ ] Background is paper, text is ink, and accents cover under 5% of the screen
 - [ ] Handwriting appears only as annotations/labels, ≤ 8 words, ≤ 1 per viewport (outside the margin)
 - [ ] Sketch marks: ≤ 2 per viewport, animate once, `aria-hidden` when decorative
+- [ ] Contours read as parallel, elongated ridges with index lines every 5th. No blobs, no crossings, never behind text
 - [ ] Radius ≤ 4px. No pills, gradients, glassy cards (except viewer overlays), or heavy shadows
 - [ ] Prose width ≤ 66ch, section padding is generous
 - [ ] Focus states visible, contrast AA, tap targets ≥ 44px, reduced motion respected
 - [ ] Works at 360px wide with no horizontal scroll
-- [ ] Light and dark themes both look right
+- [ ] The light sheet theme looks right (it's what ships). Dark tokens still render sensibly if `data-theme="dark"` is set
 
 **Don't:** use emojis as icons, use stock 3D blobs, use Inter/Roboto-style default SaaS looks, put cards inside cards, center long paragraphs, write in ALL CAPS (except mono labels), use more than one primary button per section, or use handwriting fonts for body text.
 
@@ -298,9 +325,12 @@ src/
     tokens.css        ← §2, imported once in main.tsx
     base.css          ← resets, body, headings, links, .ruled, .highlight
   components/
-    sketch/           ← Underline, Circle, Arrow, Squiggle, MarginNote
+    sketch/           ← Underline, Circle, Arrow, Squiggle, MarginNote, ContourTexture (+ contourLayout.ts)
     ui/               ← Button, Card, Input, Figure, DataTable, NavBar
+    map/              ← GraticuleCrosses (interior graticule marks)
     viewer/           ← SplatViewer, HudPanel, Compass, ScaleBar, PoiLabel
+  utils/
+    contours.ts       ← §8 Valley-and-Ridge contour generator
 ```
 
 ---
