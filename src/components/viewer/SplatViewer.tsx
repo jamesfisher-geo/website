@@ -23,6 +23,7 @@ export function SplatViewer({ tileset, caption }: SplatViewerProps) {
   const sceneRef = useRef<SplatSceneHandle | null>(null)
   const [status, setStatus] = useState<SplatSceneStatus>({ kind: 'loading', progress: 0 })
   const [debugOpen, setDebugOpen] = useState(false)
+  const [focused, setFocused] = useState(false)
   const getDebugInfo = useCallback(() => sceneRef.current?.getDebugInfo() ?? null, [])
 
   useEffect(() => {
@@ -70,10 +71,22 @@ export function SplatViewer({ tileset, caption }: SplatViewerProps) {
 
   return (
     <figure className={styles.figure}>
-      <div className={styles.viewer}>
+      {/* Focus events bubble from the canvas, the only focusable thing in the viewer. */}
+      <div
+        className={styles.viewer}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+      >
         <div ref={hostRef} className={styles.host} />
 
         {debugOpen && <SplatDebugPanel getInfo={getDebugInfo} />}
+
+        {/* The canvas label already describes the keys to screen readers. */}
+        {focused && !debugOpen && (
+          <p className={styles.keys} aria-hidden="true">
+            W A S D move · E Q up/down · ← → ↑ ↓ look · Shift faster
+          </p>
+        )}
 
         {tileset.globe && (
           <p className={styles.attribution}>

@@ -111,3 +111,22 @@
   color: var(--graphite);
   pointer-events: none;
 }
+
+/* Key hint while the viewer has focus. Top-left, where the debug panel also sits; never both. */
+.keys {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  /* Leaves room for the scene dropdown in the top-right corner. */
+  max-width: 55%;
+  margin: 0;
+  padding: var(--space-1) var(--space-2);
+  background: color-mix(in srgb, var(--paper-raised) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-instr);
+  font-size: var(--text-xs);
+  color: var(--graphite);
+  pointer-events: none;
+}
