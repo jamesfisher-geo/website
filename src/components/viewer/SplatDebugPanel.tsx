@@ -37,6 +37,13 @@ export function SplatDebugPanel({ getInfo }: SplatDebugPanelProps) {
     ['Look at', formatVec3(info.lookAt)],
     ['Heading', `${info.headingDeg.toFixed(1)}°`],
     ['Pitch', `${info.pitchDeg.toFixed(1)}°`],
+    ...(info.geo
+      ? ([
+          ['Lat', `${info.geo.latDeg.toFixed(6)}°`],
+          ['Lon', `${info.geo.lonDeg.toFixed(6)}°`],
+          ['Height', `${info.geo.heightM.toFixed(1)} m`]
+        ] satisfies [string, string][])
+      : []),
     ['Progress', `${Math.round(info.loadProgress * 100)}%`],
     ['Visible', String(tiles.visible)],
     ['Active', String(tiles.active)],

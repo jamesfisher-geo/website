@@ -28,6 +28,19 @@ describe('SplatDebugPanel', () => {
     expect(screen.getByText('50%')).toBeInTheDocument()
   })
 
+  it('leaves out latitude and longitude for scenes not on a globe', () => {
+    render(<SplatDebugPanel getInfo={() => info} />)
+    expect(screen.queryByText('Lat')).toBeNull()
+  })
+
+  it('shows latitude, longitude and height for globe scenes', () => {
+    const geo = { latDeg: 35.0912346, lonDeg: 24.5612346, heightM: 42.04 }
+    render(<SplatDebugPanel getInfo={() => ({ ...info, geo })} />)
+    expect(screen.getByText('Lat').nextSibling).toHaveTextContent('35.091235°')
+    expect(screen.getByText('Lon').nextSibling).toHaveTextContent('24.561235°')
+    expect(screen.getByText('Height').nextSibling).toHaveTextContent('42.0 m')
+  })
+
   it('shows a waiting note before the scene starts', () => {
     render(<SplatDebugPanel getInfo={() => null} />)
     expect(screen.getByText('Waiting for scene…')).toBeInTheDocument()

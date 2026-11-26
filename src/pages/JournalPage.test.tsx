@@ -19,7 +19,8 @@ vi.mock('./journalTilesets', async () => {
         description: 'The first description.',
         date: '2026-01-01',
         location: 'First site',
-        camera
+        camera,
+        globe: false
       }),
       // Shares the first URL on purpose: entries are told apart by position, not URL.
       new SplatTileset({
@@ -28,7 +29,8 @@ vi.mock('./journalTilesets', async () => {
         description: 'The second description.',
         date: '2026-01-02',
         location: 'Second site',
-        camera
+        camera,
+        globe: false
       })
     ]
   }

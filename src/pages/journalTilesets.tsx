@@ -54,6 +54,20 @@ export const JOURNAL_TILESETS: readonly [SplatTileset, ...SplatTileset[]] = [
     camera: {
       position: [1.83, -0.03, 0.55],
       lookAt: [0.52, -0.17, 0.04]
-    }
+    },
+    globe: false
+  }),
+  new SplatTileset({
+    url: 'https://gaussian-splat-journal.s3.us-east-1.amazonaws.com/models/agios_pavlos/tiles/tileset.json',
+    title: 'Agios Pavlos',
+    description: 'The Folds At Agios Pavlos',
+    date: 'August, 2026',
+    location: 'Crete, Greece',
+    camera: {
+      position: [-3.79, 7.35, 4.89],
+      lookAt: [-3.6, -1.08, -0.48]
+    },
+    globe: true,
+    verticalOffset: -2
   })
 ]

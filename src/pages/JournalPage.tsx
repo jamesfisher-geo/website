@@ -8,7 +8,7 @@ export function JournalPage() {
   const tileset = JOURNAL_TILESETS[selectedIndex] ?? JOURNAL_TILESETS[0]
 
   return (
-    <section>
+    <section className={styles.page}>
       <header className={styles.header}>
         <p className="eyebrow">01 / 3-D Journal</p>
         <h1 className={styles.title}>3-D Journal</h1>
