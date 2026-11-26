@@ -1,0 +1,25 @@
+.graticule {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* In contour brown, like the faint 5′ graticule lines on the sheet. On a narrow screen
+   the crosses would land on the hero text, so they only appear where there is room. */
+.cross {
+  display: none;
+  overflow: visible;
+}
+
+.cross path {
+  stroke: var(--contour-soft);
+  stroke-width: 1;
+  fill: none;
+}
+
+@media (min-width: 640px) {
+  .cross {
+    display: inline;
+  }
+}

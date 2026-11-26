@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { beforeEach, vi } from 'vitest'
+import { afterEach, beforeEach, vi } from 'vitest'
 import { createSplatScene } from './createSplatScene'
 import type { SplatSceneHandle, SplatSceneOptions } from './createSplatScene'
 import { SplatTileset } from './SplatTileset'
@@ -176,5 +176,88 @@ describe('SplatViewer', () => {
 
     finish({ resetView, getDebugInfo, dispose })
     await waitFor(() => expect(dispose).toHaveBeenCalledOnce())
+  })
+
+  describe('full screen', () => {
+    // jsdom has no Fullscreen API, so these stand in for the browser's.
+    let fullscreenElement: Element | null = null
+    const setFullscreenElement = (element: Element | null) => {
+      fullscreenElement = element
+      document.dispatchEvent(new Event('fullscreenchange'))
+      return Promise.resolve()
+    }
+    const requestFullscreen = vi.fn(function (this: Element) {
+      return setFullscreenElement(this)
+    })
+    const exitFullscreen = vi.fn(() => setFullscreenElement(null))
+
+    beforeEach(() => {
+      fullscreenElement = null
+      Object.defineProperty(document, 'fullscreenEnabled', { configurable: true, value: true })
+      Object.defineProperty(document, 'fullscreenElement', {
+        configurable: true,
+        get: () => fullscreenElement
+      })
+      Object.defineProperty(document, 'exitFullscreen', {
+        configurable: true,
+        value: exitFullscreen
+      })
+      Object.defineProperty(HTMLElement.prototype, 'requestFullscreen', {
+        configurable: true,
+        value: requestFullscreen
+      })
+    })
+
+    afterEach(() => {
+      for (const key of ['fullscreenEnabled', 'fullscreenElement', 'exitFullscreen'] as const) {
+        Reflect.deleteProperty(document, key)
+      }
+      Reflect.deleteProperty(HTMLElement.prototype, 'requestFullscreen')
+    })
+
+    async function renderReady() {
+      renderViewer()
+      const { onStatus } = await startedOptions()
+      await waitFor(() => expect(mockCreate.mock.results[0]?.type).toBe('return'))
+      await mockCreate.mock.results[0]?.value
+      onStatus({ kind: 'ready' })
+      return screen.findByRole('button', { name: 'Full screen' })
+    }
+
+    it('enters and exits full screen on the viewer, keeping a reset inside it', async () => {
+      const user = userEvent.setup()
+      const enter = await renderReady()
+
+      await user.click(enter)
+      expect(requestFullscreen).toHaveBeenCalledOnce()
+      const exit = await screen.findByRole('button', { name: 'Exit full screen' })
+      // The full-screen element is the viewer box, and both controls sit inside it.
+      expect(fullscreenElement).toContainElement(exit)
+      const resets = screen.getAllByRole('button', { name: 'Reset view' })
+      expect(resets.some((reset) => fullscreenElement?.contains(reset))).toBe(true)
+
+      await user.click(exit)
+      expect(exitFullscreen).toHaveBeenCalledOnce()
+      expect(await screen.findByRole('button', { name: 'Full screen' })).toBeInTheDocument()
+    })
+
+    it('follows a full-screen exit made outside the button, such as Esc', async () => {
+      const user = userEvent.setup()
+      await user.click(await renderReady())
+      await screen.findByRole('button', { name: 'Exit full screen' })
+
+      await setFullscreenElement(null)
+
+      expect(await screen.findByRole('button', { name: 'Full screen' })).toBeInTheDocument()
+    })
+
+    it('hides the control where the browser cannot go full screen', async () => {
+      Object.defineProperty(document, 'fullscreenEnabled', { configurable: true, value: false })
+      renderViewer()
+      const { onStatus } = await startedOptions()
+      onStatus({ kind: 'ready' })
+      await screen.findByRole('button', { name: 'Reset view' })
+      expect(screen.queryByRole('button', { name: 'Full screen' })).not.toBeInTheDocument()
+    })
   })
 })

@@ -10,7 +10,17 @@
 
 .contours path {
   fill: none;
-  stroke: var(--rule-strong);
-  stroke-width: 1;
   vector-effect: non-scaling-stroke;
+}
+
+/* Intermediate contours: thin and soft. */
+.intermediate {
+  stroke: var(--contour-soft);
+  stroke-width: 0.75;
+}
+
+/* Index contours: every fifth line, heavier, like a USGS quadrangle. */
+.index {
+  stroke: var(--contour);
+  stroke-width: 1.25;
 }

@@ -19,6 +19,13 @@
   overflow: hidden;
 }
 
+/* Full screen: the viewer fills the display edge to edge; the ResizeObserver refits the scene. */
+.viewer:fullscreen {
+  min-height: 100dvh;
+  border: 0;
+  border-radius: 0;
+}
+
 .host {
   position: absolute;
   inset: 0;
@@ -105,6 +112,8 @@
   margin: 0;
   padding: var(--space-1) var(--space-2);
   background: color-mix(in srgb, var(--paper-raised) 92%, transparent);
+  /* Leaves room for the full-screen controls in the bottom-left corner. */
+  max-width: calc(100% - 15rem);
   border-top-left-radius: var(--radius-md);
   font-family: var(--font-instr);
   font-size: var(--text-xs);
@@ -129,4 +138,67 @@
   font-size: var(--text-xs);
   color: var(--graphite);
   pointer-events: none;
+}
+
+/* Viewer overlay controls (DESIGN.md §9), bottom-left. The loading note shares the corner
+   but only shows before the controls appear. */
+.controls {
+  position: absolute;
+  left: var(--space-4);
+  bottom: var(--space-4);
+  display: flex;
+  gap: var(--space-2);
+}
+
+.control {
+  position: relative;
+  padding: var(--space-1) var(--space-2);
+  background: color-mix(in srgb, var(--paper-raised) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border: var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font-family: var(--font-print);
+  font-size: var(--text-xs);
+  line-height: var(--leading-tight);
+  cursor: pointer;
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+
+/* Keeps the tap target 44px tall (DESIGN.md §5) although the button looks smaller. */
+.control::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: var(--tap-target);
+  transform: translateY(-50%);
+}
+
+.control:hover {
+  border-color: var(--rule-strong);
+}
+
+/* Square icon button: the glyph alone, with the 44px tap target in both directions. */
+.iconControl {
+  display: grid;
+  place-items: center;
+  padding: var(--space-1);
+}
+
+.iconControl::before {
+  inset-inline: auto;
+  left: 50%;
+  width: var(--tap-target);
+  transform: translate(-50%, -50%);
+}
+
+.icon {
+  width: var(--space-4);
+  height: var(--space-4);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
