@@ -27,7 +27,8 @@ const tileset = new SplatTileset({
   description: 'A scene for tests.',
   date: '2026-01-01',
   location: 'Test site',
-  camera: { position: [1, 2, 3], lookAt: [0, 0, 0] }
+  camera: { position: [1, 2, 3], lookAt: [0, 0, 0] },
+  globe: false
 })
 
 function renderViewer() {
@@ -83,6 +84,19 @@ describe('SplatViewer', () => {
   it('shows the loading note until tiles are ready', () => {
     renderViewer()
     expect(screen.getByText('Loading tiles…')).toBeInTheDocument()
+  })
+
+  it('leaves out the imagery credit for scenes not on a globe', async () => {
+    renderViewer()
+    await startedOptions()
+    expect(screen.queryByText(/Imagery © Esri/)).toBeNull()
+  })
+
+  it('credits the imagery for globe scenes', async () => {
+    const globeTileset = new SplatTileset({ ...tileset, globe: true })
+    render(<SplatViewer tileset={globeTileset} caption="FIG. 01 — Test scene" />)
+    await startedOptions()
+    expect(screen.getByText(/Imagery © Esri/)).toHaveTextContent(/Elevation: Mapzen/)
   })
 
   it('passes the tileset to the scene', async () => {

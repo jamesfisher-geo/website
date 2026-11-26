@@ -1,3 +1,13 @@
+/*
+ * 21% wider than the site container, centred on it. On narrower screens it stops at the viewport
+ * less the side gutters, so it never scrolls sideways.
+ */
+.page {
+  --page-width: min(121%, 100vw - 2 * var(--gutter));
+  width: var(--page-width);
+  margin-inline: calc((100% - var(--page-width)) / 2);
+}
+
 .header {
   display: flex;
   flex-direction: column;

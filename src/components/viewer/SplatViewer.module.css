@@ -12,7 +12,7 @@
   grid-column: 1 / -1;
   align-self: stretch;
   position: relative;
-  min-height: 60dvh;
+  min-height: 73dvh;
   background: var(--paper);
   border: var(--border);
   border-radius: var(--radius-md);
@@ -95,4 +95,19 @@
 
 .reset:hover {
   border-color: var(--rule-strong);
+}
+
+/* Map-style credit in the corner, kept clear of the loading note on the left. */
+.attribution {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: var(--space-1) var(--space-2);
+  background: color-mix(in srgb, var(--paper-raised) 92%, transparent);
+  border-top-left-radius: var(--radius-md);
+  font-family: var(--font-instr);
+  font-size: var(--text-xs);
+  color: var(--graphite);
+  pointer-events: none;
 }

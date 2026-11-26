@@ -75,6 +75,13 @@ export function SplatViewer({ tileset, caption }: SplatViewerProps) {
 
         {debugOpen && <SplatDebugPanel getInfo={getDebugInfo} />}
 
+        {tileset.globe && (
+          <p className={styles.attribution}>
+            Imagery © Esri, Maxar, Earthstar Geographics · Elevation: Mapzen, USGS SRTM &amp;
+            GMTED2010, NOAA ETOPO1, Copernicus EU-DEM
+          </p>
+        )}
+
         {status.kind === 'loading' && (
           <p className={styles.loading} role="status">
             Loading tiles… {/* Hidden from screen readers, which would announce every percent. */}
