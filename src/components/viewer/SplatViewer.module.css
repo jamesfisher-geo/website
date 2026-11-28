@@ -19,6 +19,16 @@
   overflow: hidden;
 }
 
+/* The globe floats in the dark, as from orbit. Scans shown on their own keep the paper. */
+.night {
+  background: var(--viewer-night);
+}
+
+/* Blue focus rings vanish on the dark; paper-coloured ones show. */
+.night :focus-visible {
+  outline-color: var(--paper);
+}
+
 /* Full screen: the viewer fills the display edge to edge; the ResizeObserver refits the scene. */
 .viewer:fullscreen {
   min-height: 100dvh;
@@ -126,7 +136,7 @@
   position: absolute;
   top: var(--space-4);
   left: var(--space-4);
-  /* Leaves room for the scene dropdown in the top-right corner. */
+  /* Leaves room for the Back control in the top-right corner. */
   max-width: 55%;
   margin: 0;
   padding: var(--space-1) var(--space-2);
@@ -201,4 +211,155 @@
   stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+/* Back to the globe, top-right: the key hint and debug panel share the top-left. */
+.back {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+}
+
+/*
+ * The clickable part of a scan's pin. The pin itself is drawn in 3-D by the scene; this invisible
+ * 44px target sits over its head (the scene sets `translate`) and carries the focus ring.
+ */
+.pin {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--tap-target);
+  height: var(--tap-target);
+  padding: 0;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Hidden until the scene first places it, and whenever its site is past the horizon. */
+.pin:not([data-placed]),
+.pin[hidden] {
+  display: none;
+}
+
+/* The hovered or focused pin's tag sits above the other pins. */
+.pin:hover,
+.pin:focus-visible {
+  z-index: 1;
+}
+
+/*
+ * The luggage tag. Its mount starts at the pin's head (the button's centre); the string runs from
+ * there to the tag's eyelet, and the tag hangs off the eyelet, a little askew.
+ */
+.tagMount {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    visibility 0s linear var(--dur-base);
+  pointer-events: none;
+}
+
+.pin:hover .tagMount,
+.pin:focus-visible .tagMount {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+
+.tagString {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 26px;
+  height: 12px;
+  overflow: visible;
+  fill: none;
+  stroke: var(--graphite);
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
+/*
+ * The card, with the clipped corners of a shipping tag. Clip paths cut off borders, so the outline
+ * is this outer layer in --rule-strong showing 1px around the inner card.
+ */
+.tag {
+  --tag-corner: 8px;
+  --tag-eyelet: 11px;
+  position: absolute;
+  /* Puts the eyelet's centre at the string's end. */
+  top: 8.5px;
+  left: calc(25px - var(--tag-eyelet));
+  translate: 0 -50%;
+  rotate: -3deg;
+  transform-origin: var(--tag-eyelet) 50%;
+  display: block;
+  padding: 1px;
+  background: var(--rule-strong);
+  clip-path: polygon(
+    var(--tag-corner) 0,
+    100% 0,
+    100% 100%,
+    var(--tag-corner) 100%,
+    0 calc(100% - var(--tag-corner)),
+    0 var(--tag-corner)
+  );
+}
+
+.tagCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3) var(--space-1) var(--space-1);
+  background: var(--paper-sunken);
+  clip-path: polygon(
+    calc(var(--tag-corner) - 0.5px) 0,
+    100% 0,
+    100% 100%,
+    calc(var(--tag-corner) - 0.5px) 100%,
+    0 calc(100% - var(--tag-corner) + 0.5px),
+    0 calc(var(--tag-corner) - 0.5px)
+  );
+}
+
+/* The eyelet: a punched hole in a reinforcing ring of darker card. */
+.tagHole {
+  flex: none;
+  width: var(--space-2);
+  height: var(--space-2);
+  margin-left: calc(var(--tag-eyelet) - var(--space-1) - var(--space-2) / 2 - 1px);
+  border: 2px solid var(--rule-strong);
+  border-radius: 50%;
+  background: var(--paper);
+}
+
+.tagText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  /*
+   * A narrow, fixed card like a real tag: longer names wrap. The width is 9 characters of the
+   * tag's own type (54px at 10px), plus the padding and rule beside them.
+   */
+  width: calc(9ch + var(--space-2) + 1px);
+  padding-left: var(--space-2);
+  border-left: 1px dashed var(--rule-strong);
+  /* Typed in the figure caption's face, a size down. */
+  font-family: var(--font-instr);
+  font-size: var(--text-2xs);
+  line-height: var(--leading-tight);
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+
+.tagTitle {
+  font-weight: 500;
+  color: var(--ink);
 }

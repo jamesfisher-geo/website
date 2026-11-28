@@ -18,6 +18,9 @@ export interface SplatTilesetOptions {
   description: ReactNode
   date: string
   location: string
+  /** Site of the scan, in decimal degrees (WGS84), where its pin sits on the globe. */
+  latitude: number
+  longitude: number
   camera: CameraPose
   globe: boolean
   /**
@@ -33,8 +36,14 @@ export class SplatTileset {
   readonly description: ReactNode
   readonly date: string
   readonly location: string
+  readonly latitude: number
+  readonly longitude: number
   readonly camera: CameraPose
-  /** True for georeferenced (ECEF) tilesets, which are shown on a satellite-imagery globe. */
+  /**
+   * True for georeferenced (ECEF) tilesets: the globe flies to them and shows them in place.
+   * False for scans in their own coordinates, such as indoor ones, which open in a scene of their
+   * own instead.
+   */
   readonly globe: boolean
   /** Metres added along the local vertical after pinning to the terrain. */
   readonly verticalOffset: number
@@ -45,6 +54,8 @@ export class SplatTileset {
     description,
     date,
     location,
+    latitude,
+    longitude,
     camera,
     globe,
     verticalOffset = 0
@@ -54,6 +65,8 @@ export class SplatTileset {
     this.description = description
     this.date = date
     this.location = location
+    this.latitude = latitude
+    this.longitude = longitude
     this.camera = camera
     this.globe = globe
     this.verticalOffset = verticalOffset

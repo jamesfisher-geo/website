@@ -1,6 +1,6 @@
 import { SplatTileset } from '@/components/viewer/SplatTileset'
 
-/** Scenes in the journal's dropdown. The first one loads by default. */
+/** Scans on the journal's globe, each shown as a pin at its site. */
 export const JOURNAL_TILESETS: readonly [SplatTileset, ...SplatTileset[]] = [
   new SplatTileset({
     url: 'https://gaussian-splat-journal.s3.us-east-1.amazonaws.com/models/carmo_convent_tomb/tiles/tileset.json',
@@ -51,6 +51,8 @@ export const JOURNAL_TILESETS: readonly [SplatTileset, ...SplatTileset[]] = [
     ),
     date: 'May, 2024',
     location: 'Lisbon, Portugal',
+    latitude: 38.712194,
+    longitude: -9.140072,
     camera: {
       position: [1.83, -0.03, 0.55],
       lookAt: [0.52, -0.17, 0.04]
@@ -63,9 +65,12 @@ export const JOURNAL_TILESETS: readonly [SplatTileset, ...SplatTileset[]] = [
     description: 'The Folds At Agios Pavlos',
     date: 'August, 2026',
     location: 'Crete, Greece',
+    // The origin of the tileset's root transform.
+    latitude: 35.1018,
+    longitude: 24.5625,
     camera: {
-      position: [-3.79, 7.35, 4.89],
-      lookAt: [-3.6, -1.08, -0.48]
+      position: [-3.76, 6.19, 2.08],
+      lookAt: [-3.54, -3.72, 0.78]
     },
     globe: true,
     verticalOffset: -2

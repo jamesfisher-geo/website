@@ -22,12 +22,26 @@
   --contour: #804017; /* index contours: USGS contour brown, sampled from the scan */
   --contour-soft: #b17949; /* intermediate contours, sampled from the scan */
 
+  /* ── 3-D viewer ──────────────────────────── */
+  --viewer-night: #16140e; /* immersive canvas behind the globe (DESIGN.md §9): never pure black */
+
+  /* ── Map pins (3-D globe only) ───────────── */
+  /* Classroom push-pin plastics, bright enough to stand out on satellite imagery: ocean, forest
+     and desert alike. Used for nothing else. */
+  --pin-red: var(--red-pencil);
+  --pin-blue: #62b6ec; /* light blue, clear of dark ocean */
+  --pin-yellow: var(--highlighter);
+  --pin-green: #6fd448; /* bright green, clear of forest and fields */
+  --pin-orange: #f08a24;
+  --pin-purple: #9b5fd6;
+
   /* ── Type families ────────────────────────── */
   --font-print: 'Source Serif 4', 'Iowan Old Style', Georgia, serif;
   --font-hand: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
   --font-instr: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* ── Type scale (1.25 ratio, fluid at top) ── */
+  --text-2xs: 0.625rem; /* 10 — luggage-tag labels on the globe */
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1.0625rem;
